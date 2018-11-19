@@ -19,11 +19,11 @@ def imageShow(imagename, image, flag=cv2.WINDOW_GUI_EXPANDED):
     cv2.waitKey()
 
 
-def splitImageByCV(image):
+def splitImage(image):
     return cv2.split(image)
 
 
-def mergeImageByCV(channel1, channel2, channel3):
+def mergeImage(channel1, channel2, channel3):
     return cv2.merge((channel1, channel2, channel3))
 
 
@@ -40,12 +40,12 @@ openPath = path+roadImage_01
 roadColor = imageRead(openPath, cv2.IMREAD_COLOR)
 imageShow("roadColor", roadColor)
 
-b, g, r = splitImageByCV(roadColor)
+b, g, r = splitImage(roadColor)
 imageShow("roadColor_b", b)
 imageShow("roadColor_g", g)
 imageShow("roadColor_r", r)
 
-roadColor = mergeImageByCV(b, g, r)
+roadColor = mergeImage(b, g, r)
 imageShow("roadColor", roadColor)
 
 cv2.destroyAllWindows()

@@ -19,20 +19,13 @@ def imageShow(imagename, image, flag=cv2.WINDOW_GUI_EXPANDED):
     cv2.waitKey()
 
 
-def getPixelbyCV(image, x, y, c=None):
-    if c is None:
-        return image[y, x]
-    else:
-        return image[y, x, c]
+def getPixel(image, x, y, c=None):
+    return image[y, x, c]
 
 
-def setPixelbyCV(image, x, y, value, c=None):
-    if c is None:
-        image[y, x] = value
-        return image
-    else:
-        image[y, x, c] = value
-        return image
+def setPixel(image, x, y, value, c=None):
+    image[y, x, c] = value
+    return image
 
 
 path = "../../Data/Lane_Detection_Images/"
@@ -51,38 +44,40 @@ imageShow("roadColor", roadColor)
 x = 100
 y = 200
 
-pxvalue = getPixelbyCV(roadColor, x, y)
+pxvalue = getPixel(roadColor, x, y)
 print("Pixel valus in {}, {}: {}".format(x, y, pxvalue))
 
-pxvalue_b = getPixelbyCV(roadColor, x, y, 0)
-pxvalue_g = getPixelbyCV(roadColor, x, y, 1)
-pxvalue_r = getPixelbyCV(roadColor, x, y, 2)
+pxvalue_b = getPixel(roadColor, x, y, 0)
+pxvalue_g = getPixel(roadColor, x, y, 1)
+pxvalue_r = getPixel(roadColor, x, y, 2)
 print("Pixel valus in {}, {}: b={}, g={}, r={}".format(x, y, pxvalue_b, pxvalue_g, pxvalue_r))
 
 for i in range(x, x+100):
     for j in range(y, y+200):
-        roadColor = setPixelbyCV(roadColor, i, j, [(i-100)*1.2, 0, 0])
+        roadColor = setPixel(roadColor, i, j, [(i-100)*1.2, 0, 0])
 imageShow("roadColor", roadColor)
 
 for i in range(x, x+100):
     for j in range(y, y+200):
-        roadColor = setPixelbyCV(roadColor, i, j, [0, (i-100)*1.2, 0])
+        roadColor = setPixel(roadColor, i, j, [0, (i-100)*1.2, 0])
 imageShow("roadColor", roadColor)
 
 for i in range(0, roadColor.shape[1]):
-    roadColor = setPixelbyCV(roadColor, i, y, [0, 255, 0])
+    roadColor = setPixel(roadColor, i, y, 0, 0)
+    roadColor = setPixel(roadColor, i, y, 255, 1)
+    roadColor = setPixel(roadColor, i, y, 0, 2)
 imageShow("roadColor", roadColor)
 
 for j in range(0, roadColor.shape[0]):
-    roadColor = setPixelbyCV(roadColor, x, j, [255, 0, 0])
+    roadColor = setPixel(roadColor, x, j, [255, 0, 0])
 imageShow("roadColor", roadColor)
 
-pxvalue = getPixelbyCV(roadColor, x, y)
+pxvalue = getPixel(roadColor, x, y)
 print("Pixel valus in {}, {}: {}".format(x, y, pxvalue))
 
-pxvalue_b = getPixelbyCV(roadColor, x, y, 0)
-pxvalue_g = getPixelbyCV(roadColor, x, y, 1)
-pxvalue_r = getPixelbyCV(roadColor, x, y, 2)
+pxvalue_b = getPixel(roadColor, x, y, 0)
+pxvalue_g = getPixel(roadColor, x, y, 1)
+pxvalue_r = getPixel(roadColor, x, y, 2)
 print("Pixel valus in {}, {}: b={}, g={}, r={}".format(x, y, pxvalue_b, pxvalue_g, pxvalue_r))
 
 cv2.destroyAllWindows()

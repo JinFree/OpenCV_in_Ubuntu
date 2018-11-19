@@ -20,13 +20,9 @@ def imageShow(imagename, image, flag=cv2.WINDOW_GUI_EXPANDED):
     return
 
 
-def setPixelbyCV(image, x, y, value, c=None):
-    if c is None:
-        image[y, x] = value
-        return image
-    else:
-        image[y, x, c] = value
-        return image
+def setPixel(image, x, y, value, c=None):
+    image[y, x, c] = value
+    return image
 
 
 def imageCopy(src):
@@ -53,7 +49,7 @@ imageShow('img3 before function', img3)
 
 for i in range(img1.shape[1]):
     for j in range(img1.shape[0]):
-        setPixelbyCV(img1, i, j, 255, 0)
+        setPixel(img1, i, j, 255, 0)
 
 imageShow('img1 after pixel modify', img1)
 imageShow('img2 after pixel modify', img2)

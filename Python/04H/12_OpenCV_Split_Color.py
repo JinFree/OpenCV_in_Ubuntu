@@ -30,7 +30,7 @@ def rangeColor(image, lower, upper):
     return cv2.inRange(image, lower, upper)
 
 
-def splitColor(image, lower, upper, flag=cv2.COLOR_BGR2HSV):
+def splitColor(image, lower, upper, flag=None):
     converted = convertColor(image, flag)
     mask = rangeColor(converted, lower, upper)
     return cv2.bitwise_and(image, image, mask=mask)
