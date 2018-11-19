@@ -2,6 +2,10 @@ import cv2
 import numpy as np
 
 
+def imageCopy(src):
+    return np.copy(src)
+
+
 def convertColor(image, flag=None):
     if flag is None:
         return image
@@ -20,13 +24,7 @@ def splitColor(image, lower, upper, flag=cv2.COLOR_BGR2HSV):
 
 
 def frameProcessing(frame):
-    lower_white_hls = np.array([0, 200, 0])
-    upper_white_hls = np.array([179, 255, 255])
-    lower_yellow_hls = np.array([15, 30, 115])
-    upper_yellow_hls = np.array([35, 204, 255])
-    output_W_hls = splitColor(frame, lower_white_hls, upper_white_hls, cv2.COLOR_BGR2HLS)
-    output_Y_hls = splitColor(frame, lower_yellow_hls, upper_yellow_hls, cv2.COLOR_BGR2HLS)
-    output = output_W_hls + output_Y_hls
+    output = imageCopy(frame)
     return output
 
 

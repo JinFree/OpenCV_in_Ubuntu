@@ -23,17 +23,6 @@ def drawCircle(image, center, radius, color=(255, 0, 0), thickness=5, lineType=c
 
 def frameProcessing(frame):
     result = imageCopy(frame)
-    height, width = result.shape[0], result.shape[1]
-    result = drawLine(result, (430, 310), (20, 540), (255, 0, 0), 5)
-    result = drawLine(result, (530, 310), (940, 540), (255, 0, 0), 5)
-    result = drawLine(result, (430, 310), (530, 310), (255, 0, 0), 5)
-    result = drawLine(result, (20, 540), (940, 540), (255, 0, 0), 5)
-    result = drawLine(result, (int(width/2), int(height/2)), (0, height), (0, 255, 0), 5)
-    result = drawLine(result, (int(width/2), int(height/2)), (width, height), (0, 255, 0), 5)
-    result = drawRect(result, (0, int(height*0.5)), (width, height), (255, 255, 255), 5)
-    result = drawCircle(result, (int(width*0.25), int(height*0.5)), 30, (0, 0, 0), -1)
-    result = drawCircle(result, (int(width*0.5), int(height*0.5)), 30, (0, 0, 0), -1)
-    result = drawCircle(result, (int(width*0.75), int(height*0.5)), 30, (0, 0, 0), -1)
     return result
 
 
