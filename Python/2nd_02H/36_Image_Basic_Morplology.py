@@ -78,3 +78,5 @@ imageShow("roadGray_Erosion", roadGray_Erosion)
 imageShow("roadGray_Opening", roadGray_Opening)
 imageShow("roadGray_Closing", roadGray_Closing)
 imageShow("roadGray_Gradient", roadGray_Gradient)
+
+cv2.destroyAllWindows()
