@@ -52,9 +52,7 @@ openPath = path+roadImage_01
 roadColor = imageRead(openPath, cv2.IMREAD_COLOR)
 imageShow("roadColor", roadColor)
 
-height = roadColor.shape[0]
-width = roadColor.shape[1]
-
+height, width = roadColor.shape[:2]
 roi_x1 = 0
 roi_y1 = int(height*0.5)
 roi_x2 = width

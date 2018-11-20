@@ -2,6 +2,10 @@ import cv2
 import numpy as np
 
 
+def imageCopy(src):
+    return np.copy(src)
+
+
 def polyROI(image, points):
     if len(image.shape) == 2:
         channels = 1
@@ -42,7 +46,7 @@ def addWeightedImage(image1, w1, imagw2, w2=None):
 
 
 def frameProcessing(frame):
-    result = np.copy(frame)
+    result = imageCopy(frame)
     pt1 = (width * 0.35, height * 0.65)
     pt2 = (width * 0.65, height * 0.65)
     pt3 = (width, height)
