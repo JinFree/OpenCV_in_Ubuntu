@@ -45,12 +45,12 @@ x = 100
 y = 200
 
 pxvalue = getPixel(roadColor, x, y)
-print("Pixel valus in {}, {}: {}".format(x, y, pxvalue))
+print("Pixel value in {}, {}: {}".format(x, y, pxvalue))
 
 pxvalue_b = getPixel(roadColor, x, y, 0)
 pxvalue_g = getPixel(roadColor, x, y, 1)
 pxvalue_r = getPixel(roadColor, x, y, 2)
-print("Pixel valus in {}, {}: b={}, g={}, r={}".format(x, y, pxvalue_b, pxvalue_g, pxvalue_r))
+print("Pixel value in {}, {}: b={}, g={}, r={}".format(x, y, pxvalue_b, pxvalue_g, pxvalue_r))
 
 for i in range(x, x+100):
     for j in range(y, y+200):
@@ -73,11 +73,11 @@ for j in range(0, roadColor.shape[0]):
 imageShow("roadColor", roadColor)
 
 pxvalue = getPixel(roadColor, x, y)
-print("Pixel valus in {}, {}: {}".format(x, y, pxvalue))
+print("Pixel value in {}, {}: {}".format(x, y, pxvalue))
 
 pxvalue_b = getPixel(roadColor, x, y, 0)
 pxvalue_g = getPixel(roadColor, x, y, 1)
 pxvalue_r = getPixel(roadColor, x, y, 2)
-print("Pixel valus in {}, {}: b={}, g={}, r={}".format(x, y, pxvalue_b, pxvalue_g, pxvalue_r))
+print("Pixel value in {}, {}: b={}, g={}, r={}".format(x, y, pxvalue_b, pxvalue_g, pxvalue_r))
 
 cv2.destroyAllWindows()

@@ -29,7 +29,7 @@ def imageParameters(imagename, image):
         channel = 1
         print("height*width*channels is {}".format(height * width * channel))
     else:
-        print("This is net grayscale image.")
+        print("This is not grayscale image.")
         print("{}.shape[2] is channels: {}".format(imagename, image.shape[2]))
         channel = image.shape[2]
         print("height*width*channels is {}".format(height * width * channel))
