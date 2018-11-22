@@ -2,8 +2,30 @@
 
 using namespace std;
 using namespace cv;
-string trackerTypes[5] = {"BOOSTING", "MIL", "KCF", "TLD","MEDIANFLOW"};
-string trackerType = trackerTypes[2];
+vector<string> trackerTypes;
+//"BOOSTING", "MIL", "KCF", "TLD", "MEDIANFLOW"
+string trackerType = "MEDIANFLOW";
+Ptr<Tracker> createTrackerByName(string trackerType) 
+{
+    Ptr<Tracker> tracker;
+    if (trackerType ==  trackerTypes[0])
+        tracker = TrackerBoosting::create();
+    else if (trackerType == trackerTypes[1])
+        tracker = TrackerMIL::create();
+    else if (trackerType == trackerTypes[2])
+        tracker = TrackerKCF::create();
+    else if (trackerType == trackerTypes[3])
+        tracker = TrackerTLD::create();
+    else if (trackerType == trackerTypes[4])
+        tracker = TrackerMedianFlow::create();
+    else {
+        cout << "Incorrect tracker name" << endl;
+        cout << "Create BOOSTING" << endl;
+        tracker = TrackerBoosting::create();
+    }
+    return tracker;
+}
+
 string imagepath = "../../../Data/Lane_Detection_Images/";
 string roadImage_01 = "solidWhiteCurve.jpg";
 string roadImage_02 = "solidWhiteRight.jpg";
@@ -46,8 +68,14 @@ void frameProcessing(Mat &frame, Mat &result) {
 }
 
 int main(void) {
+    trackerTypes.clear();
+    trackerTypes.push_back("BOOSTING");
+    trackerTypes.push_back("MIL");
+    trackerTypes.push_back("KCF");
+    trackerTypes.push_back("TLD");
+    trackerTypes.push_back("MEDIANFLOW");
 	string openPath = videopath + roadVideo_02;
-	Video(openPath, "output_Single_Object.avi");
+	Video(openPath, "output_Multiple_Object.avi");
     return 0;
 }
 
@@ -73,18 +101,14 @@ void imageWrite(string imageName, Mat &image) {
     imwrite(imageName, image);
     return;
 }
+void getRandomColors(vector<Scalar>& colors, int numColors)
+{
+    RNG rng(0);
+    for(int i=0; i < numColors; i++)
+        colors.push_back(Scalar(rng.uniform(0,255), rng.uniform(0, 255), rng.uniform(0, 255))); 
+}
 void Video(string openPath, string savePath) {
-    Ptr<Tracker> tracker;
-    if (trackerType == "BOOSTING")
-        tracker = TrackerBoosting::create();
-    if (trackerType == "MIL")
-        tracker = TrackerMIL::create();
-    if (trackerType == "KCF")
-        tracker = TrackerKCF::create();
-    if (trackerType == "TLD")
-        tracker = TrackerTLD::create();
-    if (trackerType == "MEDIANFLOW")
-        tracker = TrackerMedianFlow::create();
+    vector<Rect> bboxes;
         
     VideoCapture cap(openPath);
     if(!cap.isOpened()) {
@@ -102,22 +126,29 @@ void Video(string openPath, string savePath) {
     namedWindow("Output", WINDOW_GUI_EXPANDED);
     Mat frame, output;
     bool ok = cap.read(frame); 
-    Rect2d bbox;
-    if(ok) {
-        bbox = selectROI(frame, false);
-    }
-    rectangle(frame, bbox, Scalar( 255, 0, 0 ), 2, 1 ); 
-    tracker->init(frame, bbox);
-    
+    bool showCrosshair = true;
+    bool fromCenter = false;
+    cout << "\n==========================================================\n";
+    cout << "OpenCV says press c to cancel objects selection process" << endl;
+    cout << "It doesn't work. Press Escape to exit selection process" << endl;
+    cout << "\n==========================================================\n";
+    selectROIs("MultiTracker", frame, bboxes, showCrosshair, fromCenter);
+ 
+    // quit if there are no objects to track
+    if(bboxes.size() < 1)
+        return;
+ 
+    vector<Scalar> colors;  
+    getRandomColors(colors, bboxes.size()); 
+    Ptr<MultiTracker> multiTracker = cv::MultiTracker::create();
+    for(int i=0; i < bboxes.size(); i++)
+        multiTracker->add(createTrackerByName(trackerType), frame, Rect2d(bboxes[i]));  
     while (cap.read(frame)) {
         frameProcessing(frame, output);
-        if(ok) {
-            rectangle(output, bbox, Scalar( 255, 0, 0 ), 2, 1 );
+        multiTracker->update(frame);
+        for(unsigned i=0; i<multiTracker->getObjects().size(); i++) {
+            rectangle(output, multiTracker->getObjects()[i], colors[i], 2, 1);
         }
-        else {
-            putText(output, "Tracking failure detected", Point(100,80), FONT_HERSHEY_SIMPLEX, 0.75, Scalar(0,0,255),2);
-        }
-        putText(output, trackerType + " Tracker", Point(100,20), FONT_HERSHEY_SIMPLEX, 0.75, Scalar(50,170,50),2);
  
         if (!savePath.empty())
             out.write(output);
