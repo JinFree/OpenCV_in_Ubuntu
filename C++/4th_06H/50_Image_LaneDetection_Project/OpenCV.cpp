@@ -14,9 +14,44 @@ string videopath = "../../../Data/Lane_Detection_Videos/";
 string roadVideo_01 = "solidYellowLeft.mp4";
 string roadVideo_02 = "solidWhiteRight.mp4";
 
+Mat imageProcessing(Mat &image) {
+    Mat result;
+    result = imageCopy(image);
+    return result;
+}
 int main(void) {
-	string openPath = videopath + roadVideo_01;
-	Video(openPath, "output_LaneDetection_Project.avi");
+	Mat roadColor_01 = imageRead(imagepath + roadImage_01, IMREAD_COLOR);
+	Mat roadColor_02 = imageRead(imagepath + roadImage_02, IMREAD_COLOR);
+	Mat roadColor_03 = imageRead(imagepath + roadImage_03, IMREAD_COLOR);
+	Mat roadColor_04 = imageRead(imagepath + roadImage_04, IMREAD_COLOR);
+	Mat roadColor_05 = imageRead(imagepath + roadImage_05, IMREAD_COLOR);
+	Mat roadColor_06 = imageRead(imagepath + roadImage_06, IMREAD_COLOR);
+	
+	Mat roadResult_01 = imageProcessing(roadColor_01);
+    imageShow("roadColor_01", roadColor_01);
+    imageShow("roadResult_01", roadResult_01);
+    
+	Mat roadResult_02 = imageProcessing(roadColor_02);
+    imageShow("roadColor_02", roadColor_02);
+    imageShow("roadResult_02", roadResult_02);
+    
+	Mat roadResult_03 = imageProcessing(roadColor_03);
+    imageShow("roadColor_03", roadColor_03);
+    imageShow("roadResult_03", roadResult_03);
+    
+	Mat roadResult_04 = imageProcessing(roadColor_04);
+    imageShow("roadColor_04", roadColor_04);
+    imageShow("roadResult_04", roadResult_04);
+    
+	Mat roadResult_05 = imageProcessing(roadColor_05);
+    imageShow("roadColor_05", roadColor_05);
+    imageShow("roadResult_05", roadResult_05);
+    
+	Mat roadResult_06 = imageProcessing(roadColor_06);
+    imageShow("roadColor_06", roadColor_06);
+    imageShow("roadResult_06", roadResult_06);
+	
+    destroyAllWindows();
     return 0;
 }
 
@@ -77,7 +112,7 @@ void Video(string openPath, string savePath) {
     destroyAllWindows();
 }
 void frameProcessing(Mat &frame, Mat &result) {
-    convertColor(frame, result);	
+    cvtColor(frame, result, COLOR_RGB2GRAY);
     return;
 }
 vector<int> imageParameters(string imagename,Mat &image) {
@@ -439,7 +474,7 @@ void imageHoughLinesP(Mat &image, vector<Vec4i> &lines, double rho, double theta
     return;
 }
 void drawHoughLinesP(Mat &result, vector<Vec4i> &lines, Scalar color, int thickness) {
- 	std::vector<cv::Vec4i>::const_iterator it= lines.begin();
+ 	vector<Vec4i>::const_iterator it= lines.begin();
     while (it!=lines.end()) {
         Point pt1((*it)[0],(*it)[1]);
         Point pt2((*it)[2],(*it)[3]);
@@ -447,4 +482,84 @@ void drawHoughLinesP(Mat &result, vector<Vec4i> &lines, Scalar color, int thickn
         ++it;
     }
   	return;
+}
+void splitLines(vector<Vec4i> &lines, vector<vector<Point> > &points) {
+    vector<Point> left_x, left_y, right_x, right_y;
+    int i;
+    for( i = 0 ; i < lines.size() ; i++ ){
+        Vec4i l = lines[i];
+        int x1, y1, x2, y2;
+        x1 = l[0];
+        y1 = l[1];
+        x2 = l[2];
+        y2 = l[3];
+        double slope = (double)(y2-y1)/(double)(x2-x1);
+        if (abs(slope) < 0.5 ) {
+            continue;
+        }
+        if ( slope <= 0 ) {
+            left_x.push_back(Point(x1, x2));
+            left_y.push_back(Point(y1, y2));
+        }
+        else {
+            right_x.push_back(Point(x1, x2));
+            right_y.push_back(Point(y1, y2));
+        }
+    }
+    points.clear();
+    points.push_back(left_x);
+    points.push_back(left_y);
+    points.push_back(right_x);
+    points.push_back(right_y);
+    return;
+}
+bool comp(Point a, Point b) {
+    return (a.x>b.x);
+}
+void medianPoint(vector<Point> &points, Point &point) {
+    size_t size = points.size();
+    sort(points.begin(), points.end(), comp);
+    point = points[(int)(size/2)];
+    return;
+}
+void meanPoint(vector<Point> &points, Point &point) {
+    int sum1 = 0;
+    int sum2 = 0;
+    int temp = 0;
+    for (temp = 0 ; temp < points.size();temp++) {
+        sum1 += points[temp].x;
+        sum2 += points[temp].y;
+    }
+    int p_1 = (double)sum1/(double)temp;
+    int p_2 = (double)sum2/(double)temp;
+    point = Point(p_1, p_2);
+    return;
+}
+void interpolate(Point &pt1, Point &pt2, int y, Point &pt) {
+    int x1 = pt1.x;
+    int x2 = pt1.y;
+    int y1 = pt2.x;
+    int y2 = pt2.y;
+    int x = float(y - y1) * float(x2-x1) / float(y2-y1) + x1;
+    pt.x = x;
+    pt.y = y;
+    return;
+}
+void linefitting(Mat &image, Mat &result, vector<vector<Point> > &points) {
+    result = imageCopy(image);
+    Point lx, ly, rx, ry;
+    meanPoint(points[0], lx);
+    meanPoint(points[1], ly);
+    meanPoint(points[2], rx);
+    meanPoint(points[3], ry);
+    int min_y = image.rows * 0.6;
+    int max_y = image.rows;
+    Point left_min, left_max, right_min, right_max;
+    interpolate(lx, ly, min_y, left_min);
+    interpolate(lx, ly, max_y, left_max);
+    interpolate(rx, ry, min_y, right_min);
+    interpolate(rx, ry, max_y, right_max);
+    line(result, left_min, left_max, Scalar(0, 0, 255), 3);
+    line(result, right_min, right_max, Scalar(0, 0, 255), 3);
+    return;
 }
