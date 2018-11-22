@@ -19,7 +19,7 @@ def imageShow(imagename, image, flag=cv2.WINDOW_GUI_EXPANDED):
     cv2.waitKey()
 
 
-def imageFiltering(image, kernel, ddepth=-1):
+def imageFiltering(image, kernel, ddepth):
     return cv2.filter2D(image, ddepth, kernel)
 
 
