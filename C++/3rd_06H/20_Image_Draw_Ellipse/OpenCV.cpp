@@ -16,8 +16,29 @@ string roadVideo_01 = "solidYellowLeft.mp4";
 string roadVideo_02 = "solidWhiteRight.mp4";
 
 int main(void) {
-	string openPath = videopath + roadVideo_01;
-	Video(openPath, "output_draw.avi");
+	string openPath = imagepath + roadImage_01;
+	
+	Mat roadColor = imageRead(openPath, IMREAD_COLOR);
+	imageShow("roadColor", roadColor);
+	
+	int height = roadColor.rows;
+	int width = roadColor.cols;
+	
+	Point pt1(int(width * 0.25), int(height * 0.25));
+	Point pt2(int(width * 0.5), int(height * 0.5));
+	Point pt3(int(width * 0.75), int(height * 0.75));
+	
+	Mat roadCircle_01, roadEllipse_01, roadEllipse_02;
+	
+	drawCircle(roadColor, roadCircle_01, pt1, 10, Scalar(255, 0, 0), -1);
+	drawEllipse(roadColor, roadEllipse_01, pt2, Size(10, 10), 0.0, 0.0, 360.0, Scalar(255, 0, 0), -1);
+	drawEllipse(roadColor, roadEllipse_02, pt3, Size(20, 10), 0.0, 0.0, 360.0, Scalar(255, 0, 0), 5);
+	drawEllipse(roadEllipse_02, roadEllipse_02, pt2, Size(40, 20), 0.0, 0.0, 50.0, Scalar(0, 255, 0), -1);
+	
+    imageShow("roadCircle_01", roadCircle_01);
+    imageShow("roadEllipse_01", roadEllipse_01);
+    imageShow("roadEllipse_02", roadEllipse_02);
+    destroyAllWindows();
     return 0;
 }
 
@@ -78,7 +99,7 @@ void Video(string openPath, string savePath) {
     destroyAllWindows();
 }
 void frameProcessing(Mat &frame, Mat &result) {
-    result = imageCopy(frame);
+    cvtColor(frame, result, COLOR_RGB2GRAY);
     return;
 }
 vector<int> imageParameters(string imagename,Mat &image) {
@@ -194,5 +215,10 @@ void drawRect(Mat &image, Mat &result, Rect rect, Scalar color, int thickness) {
 void drawCircle(Mat &image, Mat &result, Point center, int radius,  Scalar color, int thickness) {
     result = imageCopy(image);
     circle(result, center, radius, color, thickness);
+    return;
+}
+void drawEllipse(Mat &image, Mat &result, Point center, Size axis, double angle, double startAngle, double endAngle, Scalar color, int thickness) {
+    result = imageCopy(image);
+    ellipse(result, center, axis, angle, startAngle, endAngle, color, thickness);
     return;
 }

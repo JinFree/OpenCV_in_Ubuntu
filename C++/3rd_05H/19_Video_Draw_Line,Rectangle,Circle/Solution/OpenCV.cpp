@@ -17,7 +17,7 @@ string roadVideo_02 = "solidWhiteRight.mp4";
 
 int main(void) {
 	string openPath = videopath + roadVideo_01;
-	Video(openPath, "output_hsv_splitcolor.avi");
+	Video(openPath, "output_draw.avi");
     return 0;
 }
 

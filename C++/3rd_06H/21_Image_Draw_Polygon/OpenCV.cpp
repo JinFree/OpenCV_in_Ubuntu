@@ -16,8 +16,31 @@ string roadVideo_01 = "solidYellowLeft.mp4";
 string roadVideo_02 = "solidWhiteRight.mp4";
 
 int main(void) {
-	string openPath = videopath + roadVideo_01;
-	Video(openPath, "output_draw.avi");
+	string openPath = imagepath + roadImage_01;
+	
+	Mat roadColor = imageRead(openPath, IMREAD_COLOR);
+	imageShow("roadColor", roadColor);
+	
+	int height = roadColor.rows;
+	int width = roadColor.cols;
+	
+	vector<Point> points;
+	points.push_back(Point(0,height));
+	points.push_back(Point(int(width *0.5), int(height *0.5)));
+	points.push_back(Point(width, height));
+	
+    Mat roadColor_Poly_01, roadColor_Poly_02;
+    drawPolygon(roadColor, roadColor_Poly_01, points, true, Scalar(255, 0, 0), 3);
+    
+    points.clear();
+	points.push_back(Point(int(width *0.4), int(height *0.6)));
+	points.push_back(Point(int(width *0.6), int(height *0.6)));
+	points.push_back(Point(width, height));
+	points.push_back(Point(0, height));
+	drawPolygon(roadColor, roadColor_Poly_02, points, true, Scalar(0, 255, 0), 3);
+    imageShow("roadColor_Poly_01", roadColor_Poly_01);
+    imageShow("roadColor_Poly_02", roadColor_Poly_02);
+    destroyAllWindows();
     return 0;
 }
 
@@ -78,7 +101,7 @@ void Video(string openPath, string savePath) {
     destroyAllWindows();
 }
 void frameProcessing(Mat &frame, Mat &result) {
-    result = imageCopy(frame);
+    cvtColor(frame, result, COLOR_RGB2GRAY);
     return;
 }
 vector<int> imageParameters(string imagename,Mat &image) {
@@ -194,5 +217,17 @@ void drawRect(Mat &image, Mat &result, Rect rect, Scalar color, int thickness) {
 void drawCircle(Mat &image, Mat &result, Point center, int radius,  Scalar color, int thickness) {
     result = imageCopy(image);
     circle(result, center, radius, color, thickness);
+    return;
+}
+void drawEllipse(Mat &image, Mat &result, Point center, Size axis, double angle, double startAngle, double endAngle, Scalar color, int thickness) {
+    result = imageCopy(image);
+    ellipse(result, center, axis, angle, startAngle, endAngle, color, thickness);
+    return;
+}
+void drawPolygon(Mat &image, Mat &result, vector<Point> points, bool isClosed, Scalar color, int thickness) {
+    result = imageCopy(image);
+    const Point *pts = (const Point *)Mat(points).data;
+    int npts = Mat(points).rows;
+    polylines(result, &pts, &npts, 1, isClosed, color, thickness);
     return;
 }

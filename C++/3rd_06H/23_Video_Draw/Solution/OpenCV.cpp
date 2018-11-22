@@ -79,6 +79,16 @@ void Video(string openPath, string savePath) {
 }
 void frameProcessing(Mat &frame, Mat &result) {
     result = imageCopy(frame);
+    int width = frame.cols;
+    int height = frame.rows;
+    vector<Point> points;
+    points.push_back(Point(int(width*0.35), int(height*0.65)));
+    points.push_back(Point(int(width*0.65), int(height*0.65)));
+    points.push_back(Point(width, height));
+    points.push_back(Point(0, height));
+    drawPolygon(result, result, points, true, Scalar(255, 0, 0), 5);
+    drawText(result, result, "OpenCV Video Processing", Point(10, 50), FONT_HERSHEY_PLAIN, 2.5, Scalar(0, 255, 0), 3);
+    drawEllipse(result, result, Point(int(width*0.5), int(height*0.5)), Size(30, 30), 0.0, 0.0, 360.0, Scalar(255, 255, 255), -1);
     return;
 }
 vector<int> imageParameters(string imagename,Mat &image) {
@@ -194,5 +204,23 @@ void drawRect(Mat &image, Mat &result, Rect rect, Scalar color, int thickness) {
 void drawCircle(Mat &image, Mat &result, Point center, int radius,  Scalar color, int thickness) {
     result = imageCopy(image);
     circle(result, center, radius, color, thickness);
+    return;
+}
+void drawEllipse(Mat &image, Mat &result, Point center, Size axis, double angle, double startAngle, double endAngle, Scalar color, int thickness) {
+    result = imageCopy(image);
+    ellipse(result, center, axis, angle, startAngle, endAngle, color, thickness);
+    return;
+}
+void drawPolygon(Mat &image, Mat &result, vector<Point> points, bool isClosed, Scalar color, int thickness) {
+    result = imageCopy(image);
+    const Point *pts = (const Point *)Mat(points).data;
+    int npts = Mat(points).rows;
+    polylines(result, &pts, &npts, 1, isClosed, color, thickness);
+    return;
+}
+
+void drawText(Mat& image, Mat &result, const string& text, Point point, int font, double fontScale, Scalar color, int thickness) {
+    result = imageCopy(image);
+    putText(result, text, point, font, fontScale, color, thickness);
     return;
 }

@@ -16,8 +16,27 @@ string roadVideo_01 = "solidYellowLeft.mp4";
 string roadVideo_02 = "solidWhiteRight.mp4";
 
 int main(void) {
-	string openPath = videopath + roadVideo_01;
-	Video(openPath, "output_draw.avi");
+	string openPath = imagepath + roadImage_01;
+	
+	Mat roadColor = imageRead(openPath, IMREAD_COLOR);
+	imageShow("roadColor", roadColor);
+	
+	Mat roadColor_Text_01, roadColor_Text_02;
+	drawText(roadColor, roadColor_Text_01, "OpenCV Image Processing", Point(10, 50), FONT_HERSHEY_PLAIN, 2.5, Scalar(255, 0, 0), 3);
+    drawCircle(roadColor_Text_01, roadColor_Text_01, Point(10, 50), 5, Scalar(0, 0, 255), -1);
+	imageShow("roadColor_Text_01", roadColor_Text_01);
+    
+	drawText(roadColor, roadColor_Text_02 , "FONT_HERSHEY_SIMPLEX", Point(10, 50), FONT_HERSHEY_SIMPLEX, 1.0, Scalar(255, 0, 0), 1);
+	drawText(roadColor_Text_02, roadColor_Text_02 , "FONT_HERSHEY_PLAIN", Point(10, 100), FONT_HERSHEY_PLAIN, 1.0, Scalar(255, 0, 0), 1);
+	drawText(roadColor_Text_02, roadColor_Text_02 , "FONT_HERSHEY_DUPLEX", Point(10, 150), FONT_HERSHEY_DUPLEX, 1.0, Scalar(255, 0, 0), 1);
+	drawText(roadColor_Text_02, roadColor_Text_02 , "FONT_HERSHEY_COMPLEX", Point(10, 200), FONT_HERSHEY_COMPLEX, 1.0, Scalar(255, 0, 0), 1);
+	drawText(roadColor_Text_02, roadColor_Text_02 , "FONT_HERSHEY_TRIPLEX", Point(10, 250), FONT_HERSHEY_TRIPLEX, 1.0, Scalar(255, 0, 0), 1);
+	drawText(roadColor_Text_02, roadColor_Text_02 , "FONT_HERSHEY_COMPLEX_SMALL", Point(10, 300), FONT_HERSHEY_COMPLEX_SMALL, 1.0, Scalar(255, 0, 0), 1);
+	drawText(roadColor_Text_02, roadColor_Text_02 , "FONT_HERSHEY_SCRIPT_SIMPLEX", Point(10, 350), FONT_HERSHEY_SCRIPT_SIMPLEX, 1.0, Scalar(255, 0, 0), 1);
+	drawText(roadColor_Text_02, roadColor_Text_02 , "FONT_HERSHEY_SCRIPT_COMPLEX", Point(10, 400), FONT_HERSHEY_SCRIPT_COMPLEX, 1.0, Scalar(255, 0, 0), 1);
+	imageShow("roadColor_Text_02", roadColor_Text_02);
+	
+    destroyAllWindows();
     return 0;
 }
 
@@ -78,7 +97,7 @@ void Video(string openPath, string savePath) {
     destroyAllWindows();
 }
 void frameProcessing(Mat &frame, Mat &result) {
-    result = imageCopy(frame);
+    cvtColor(frame, result, COLOR_RGB2GRAY);
     return;
 }
 vector<int> imageParameters(string imagename,Mat &image) {
@@ -194,5 +213,23 @@ void drawRect(Mat &image, Mat &result, Rect rect, Scalar color, int thickness) {
 void drawCircle(Mat &image, Mat &result, Point center, int radius,  Scalar color, int thickness) {
     result = imageCopy(image);
     circle(result, center, radius, color, thickness);
+    return;
+}
+void drawEllipse(Mat &image, Mat &result, Point center, Size axis, double angle, double startAngle, double endAngle, Scalar color, int thickness) {
+    result = imageCopy(image);
+    ellipse(result, center, axis, angle, startAngle, endAngle, color, thickness);
+    return;
+}
+void drawPolygon(Mat &image, Mat &result, vector<Point> points, bool isClosed, Scalar color, int thickness) {
+    result = imageCopy(image);
+    const Point *pts = (const Point *)Mat(points).data;
+    int npts = Mat(points).rows;
+    polylines(result, &pts, &npts, 1, isClosed, color, thickness);
+    return;
+}
+
+void drawText(Mat& image, Mat &result, const string& text, Point point, int font, double fontScale, Scalar color, int thickness) {
+    result = imageCopy(image);
+    putText(result, text, point, font, fontScale, color, thickness);
     return;
 }

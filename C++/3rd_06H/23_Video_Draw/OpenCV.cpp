@@ -196,3 +196,21 @@ void drawCircle(Mat &image, Mat &result, Point center, int radius,  Scalar color
     circle(result, center, radius, color, thickness);
     return;
 }
+void drawEllipse(Mat &image, Mat &result, Point center, Size axis, double angle, double startAngle, double endAngle, Scalar color, int thickness) {
+    result = imageCopy(image);
+    ellipse(result, center, axis, angle, startAngle, endAngle, color, thickness);
+    return;
+}
+void drawPolygon(Mat &image, Mat &result, vector<Point> points, bool isClosed, Scalar color, int thickness) {
+    result = imageCopy(image);
+    const Point *pts = (const Point *)Mat(points).data;
+    int npts = Mat(points).rows;
+    polylines(result, &pts, &npts, 1, isClosed, color, thickness);
+    return;
+}
+
+void drawText(Mat& image, Mat &result, const string& text, Point point, int font, double fontScale, Scalar color, int thickness) {
+    result = imageCopy(image);
+    putText(result, text, point, font, fontScale, color, thickness);
+    return;
+}
