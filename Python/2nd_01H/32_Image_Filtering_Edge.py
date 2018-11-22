@@ -52,7 +52,6 @@ def imageEdgeScharr(image):
 
 
 def imageEdgeLaplacianCV(image):
-    img_dx = cv2.Laplacian(image, -1)
     return cv2.Laplacian(image, -1)
 
 
