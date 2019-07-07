@@ -25,6 +25,6 @@ cmake -D CMAKE_BUILD_TYPE=RELEASE \
 ../
 make -j $(nproc)
 sudo make install
-echo "export LD_LIBRARY_PATH=/$LD_LIBRARY_PATH:/usr/local/lib" >> ~/.bashrc
+echo "export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:/usr/local/lib" >> ~/.bashrc
 #!/bin/sh
 source ~/.bashrc
