@@ -1,6 +1,6 @@
 #!/bin/bash
-apt-get update && apt-get upgrade -y && apt-get autoremove -y
-apt-get install -y apt-utils cmake unzip gedit vim pkg-config build-essential cmake libjpeg-dev libtiff5-dev libjasper-dev libpng12-dev libavcodec-dev libavformat-dev libswscale-dev libxvidcore-dev libx264-dev libxine2-dev libv4l-dev v4l-utils libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libqt4-dev mesa-utils libgl1-mesa-dri libqt4-opengl-dev libatlas-base-dev gfortran libeigen3-dev python2.7-dev python3-dev python-numpy python3-numpy
+sudo apt-get update && apt-get upgrade -y && apt-get autoremove -y
+sudo apt-get install -y apt-utils cmake unzip gedit vim pkg-config build-essential cmake libjpeg-dev libgflags-dev libtiff5-dev libpng-dev libavcodec-dev libavformat-dev libswscale-dev libxvidcore-dev libx264-dev libxine2-dev libv4l-dev v4l-utils gstreamer1.0-tools gstreamer1.0-alsa gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav install libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libgstreamer-plugins-good1.0-dev libgstreamer-plugins-bad1.0-dev libqt4-dev mesa-utils libgl1-mesa-dri libqt4-opengl-dev libatlas-base-dev gfortran libeigen3-dev python2.7-dev python3-dev python-numpy python3-numpy
 cd && mkdir OPENCV_INSTALL && cd OPENCV_INSTALL && wget -O opencv.zip https://github.com/opencv/opencv/archive/3.4.0.zip && unzip opencv.zip && wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/3.4.0.zip && unzip opencv_contrib.zip
 cd && cd OPENCV_INSTALL/opencv-3.4.0/ && mkdir build && cd build
 cmake -D CMAKE_BUILD_TYPE=RELEASE \
@@ -24,7 +24,7 @@ cmake -D CMAKE_BUILD_TYPE=RELEASE \
 -D BUILD_NEW_PYTHON_SUPPORT=ON \
 ../
 make -j $(nproc)
-make install
+sudo make install
 echo "export LD_LIBRARY_PATH=/$LD_LIBRARY_PATH:/usr/local/lib" >> ~/.bashrc
 #!/bin/sh
 source ~/.bashrc
