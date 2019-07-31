@@ -85,6 +85,86 @@ vector<int> imageParameters(string imagename,Mat &image)
     cout << imagename << ".type() is " << image.type()<< endl;
     Result.push_back(height);
     Result.push_back(width);
-    Result.push_back(channels);
     return Result;
+}
+int getPixel(Mat &image, int x, int y, int c) {
+    if( image.type() == CV_8UC1) {
+        uchar* pointer = image.ptr<uchar>(y);
+        return pointer[x];
+    }
+    else if( image.type() == CV_8UC3) {
+        uchar* pointer = image.ptr<uchar>(y);
+        return pointer[x*3+c];
+    }
+}
+void setPixel(Mat &image, int x, int y, int value, int c) {
+    if( image.type() == CV_8UC1) {
+        uchar* pointer = image.ptr<uchar>(y);
+        pointer[x] = value;
+        return;
+    }
+    else if( image.type() == CV_8UC3) {
+        uchar* pointer = image.ptr<uchar>(y);
+        pointer[x*3+c]= value;
+        return;;
+    }
+}
+void CutRectROI(Mat &image, Mat &result, Point pt1, Point pt2)
+{
+    result = image(Rect(pt1, pt2)).clone();
+    return;
+}
+void PasteRectROI(Mat &image, Mat &result, Point pt1, Point pt2)
+{   
+    Mat dstROI(result, Rect(pt1, pt2));
+    image.copyTo(dstROI);
+    return;
+}
+Mat makeBlackImage(Mat &image, bool color)
+{
+    if(color)
+        return Mat::zeros(image.size(), CV_8UC3);
+    else
+        return Mat::zeros(image.size(), image.type());
+}
+Mat fillPolyROI(Mat &image, vector<Point> points)
+{
+    Mat result = makeBlackImage(image, false);
+    vector<vector<Point> > fillContAll;
+    fillContAll.push_back(points);
+    if(image.channels()==1)
+        fillPoly(result, fillContAll, Scalar(255));
+    else 
+        fillPoly(result, fillContAll, Scalar(255, 255, 255));
+}
+void polyROI(Mat &image, Mat &result, vector<Point> points) 
+{
+    result = fillPolyROI(image, points);
+    bitwise_and(result, image, result);
+    return;
+}
+void convertColor(Mat &image, Mat &result, int flag=COLOR_BGR2GRAY)
+{
+    cvtColor(image, result, flag);
+    return;
+}
+
+void splitImage(Mat &image, vector<Mat> &channels) 
+{
+    split(image, channels);
+    return;
+}
+void mergeImage(vector<Mat> &channels, Mat &image) 
+{
+    merge(channels, image);
+    return;
+}
+void mergeImage(Mat &ch1, Mat &ch2, Mat &ch3, Mat &image) 
+{
+    vector<Mat> channels;
+	channels.push_back(ch1);
+	channels.push_back(ch2);
+	channels.push_back(ch3);
+	mergeImage(channels, image);
+	return;
 }
