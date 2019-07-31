@@ -1,0 +1,4 @@
+.vscode
+*.pyc
+*.o
+*.out

@@ -83,7 +83,6 @@ def imageParameters(imagename, image):
     else:
         print("This is not grayscale image.")
         print("{}.shape[2] is channels: {}".format(imagename, image.shape[2]))
-    print("{}.size is {}".format(imagename, image.size))
     print("{}.dtype is {}".format(imagename, image.dtype))
     return height, width
 

@@ -13,3 +13,4 @@ void imageShow(string imageName, Mat &image, int flag = WINDOW_GUI_EXPANDED);
 void imageWrite(string imageName, Mat &image);
 Mat imageCopy(Mat &image);
 void Video(string openPath, string savePath="output.avi");
+vector<int> imageParameters(string imagename,Mat &image);

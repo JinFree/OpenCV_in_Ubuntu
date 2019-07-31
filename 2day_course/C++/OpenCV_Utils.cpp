@@ -68,3 +68,23 @@ void Video(string openPath, string savePath)
     destroyAllWindows();
     return;
 }
+vector<int> imageParameters(string imagename,Mat &image)
+{
+    vector<int> Result;
+    Size size = image.size();
+    int width = image.cols;
+    int height = image.rows;
+    cout << imagename << ".size() is " << size<< endl;
+    cout << imagename << ".rows is height: " << height<< endl;
+    cout << imagename << ".cols is width: " << width<< endl;
+    int channels = image.channels();
+    if( channels == 1)
+        cout << "This is grayscale image." << endl;
+    else
+        cout << "This is not grayscale image." << endl;
+    cout << imagename << ".type() is " << image.type()<< endl;
+    Result.push_back(height);
+    Result.push_back(width);
+    Result.push_back(channels);
+    return Result;
+}
