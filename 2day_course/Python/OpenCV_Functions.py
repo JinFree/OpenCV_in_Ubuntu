@@ -46,7 +46,7 @@ def processingMultipleImages():
         imageShow("Image index is {}".format(index), image)
         result = imageProcessing(image)
         imageShow("Result of index {}".format(index), result)
-        imageWrite("Result {}.jpg".format(index), result)
+        imageWrite("Result_{}.jpg".format(index), result)
     return
 
 
@@ -73,5 +73,5 @@ def videoList():
 def processingMultipleVideos():
     list_of_videos = videoList()
     for index in range(len(list_of_videos)):
-        Video(list_of_videos[index], "output {}.avi".format(index))
+        Video(list_of_videos[index], "output_{}.mp4".format(index))
     return
