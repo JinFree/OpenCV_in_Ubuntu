@@ -168,3 +168,60 @@ void mergeImage(Mat &ch1, Mat &ch2, Mat &ch3, Mat &image)
 	mergeImage(channels, image);
 	return;
 }
+void rangeColor(Mat &image, Mat &result, Scalar &min, Scalar &max) 
+{
+    result = imageCopy(image);
+    inRange(image, min, max, result);
+    return;
+}
+void splitColor(Mat &image, Mat &result, Scalar &min, Scalar &max, int flag) 
+{
+    Mat mask = imageCopy(image);
+    rangeColor(mask, mask, min, max);
+    bitwise_and(image, image, result, mask);
+    return;
+}
+void drawLine(Mat &image, Mat &result, Point pt1, Point pt2, Scalar color, int thickness) 
+{
+    result = imageCopy(image);
+    line(result, pt1, pt2, color, thickness);
+    return;
+}
+void drawRect(Mat &image, Mat &result, Point pt1, Point pt2, Scalar color, int thickness) 
+{
+    result = imageCopy(image);
+    rectangle(result, pt1, pt2, color, thickness);
+    return;
+}
+void drawRect(Mat &image, Mat &result, Rect rect, Scalar color, int thickness) 
+{
+    result = imageCopy(image);
+    rectangle(result, rect, color, thickness);
+    return;
+}
+void drawCircle(Mat &image, Mat &result, Point center, int radius,  Scalar color, int thickness) 
+{
+    result = imageCopy(image);
+    circle(result, center, radius, color, thickness);
+    return;
+}
+void drawEllipse(Mat &image, Mat &result, Point center, Size axis, double angle, double startAngle, double endAngle, Scalar color, int thickness) 
+{
+    result = imageCopy(image);
+    ellipse(result, center, axis, angle, startAngle, endAngle, color, thickness);
+    return;
+}
+void drawPolygon(Mat &image, Mat &result, vector<Point> points, bool isClosed, Scalar color, int thickness) 
+{
+    result = imageCopy(image);
+    const Point *pts = (const Point *)Mat(points).data;
+    int npts = Mat(points).rows;
+    polylines(result, &pts, &npts, 1, isClosed, color, thickness);
+    return;
+}
+void drawText(Mat& image, Mat &result, const string& text, Point point, int font, double fontScale, Scalar color, int thickness) 
+{
+    result = imageCopy(image);
+    putText(result, text, point, font, fontScale, color, thickness);
+    return;
+}
