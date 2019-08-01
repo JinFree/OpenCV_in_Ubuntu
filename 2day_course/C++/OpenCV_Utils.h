@@ -63,3 +63,7 @@ void imageTranslation(Mat &image, Mat &result, Size size, double dx=0.0, double 
 void imageRotation(Mat &image, Mat &result, Point center, double angle = 0.0, double scale = 1.0, Size size = Size(), int interpolation = INTER_LINEAR);
 void imageAffineTransformation(Mat &image, Mat &result, vector<Point> src_pts, vector<Point> dst_pts, Size size, int  interpolation = INTER_LINEAR);
 void imagePerspectiveTransformation(Mat &image, Mat &result, vector<Point> src_pts, vector<Point> dst_pts, Size size, int  interpolation = INTER_LINEAR);
+void imageHoughLines(Mat &image, vector<Vec2f> &lines, double rho = 1.0, double theta = PI/180.0, int threshold = 100);
+void drawHoughLines(Mat &result, vector<Vec2f> &lines, Scalar color = Scalar(0, 0, 255), int thickness = 3);
+void imageHoughLinesP(Mat &image, vector<Vec4i> &lines, double rho = 1.0, double theta = PI/180.0, int threshold = 100, double minLineLength = 10.0, double maxLineGap = 100.0);
+void drawHoughLinesP(Mat &result, vector<Vec4i> &lines, Scalar color = Scalar(0, 0, 255), int thickness = 3);

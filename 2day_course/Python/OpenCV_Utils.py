@@ -170,18 +170,18 @@ def drawCircle(image, center, radius, color=(255, 0, 0), thickness=3, lineType=c
     return cv2.circle(result, center, radius, color, thickness, lineType)
 
 
-def drawEllipse(image, center, axis, angle, startAngle, endAngle, color=(255, 0, 0), thickness=5, lineType=cv2.LINE_AA):
+def drawEllipse(image, center, axis, angle, startAngle, endAngle, color=(255, 0, 0), thickness=3, lineType=cv2.LINE_AA):
     result = imageCopy(image)
     return cv2.ellipse(result, center, axis, angle, startAngle, endAngle, color, thickness, lineType)
 
 
-def drawPolygon(image, pts, isClosed, color=(255, 0, 0), thickness=5, lineType=cv2.LINE_AA):
+def drawPolygon(image, pts, isClosed, color=(255, 0, 0), thickness=3, lineType=cv2.LINE_AA):
     result = imageCopy(image)
     pts = pts.reshape((-1, 1, 2))
     return cv2.polylines(result, [pts], isClosed, color, thickness, lineType)
     
 
-def drawText(image, text, point=(10, 10), font=cv2.FONT_HERSHEY_PLAIN, fontScale=2.0, color=(255,255,255), thickness=5, lineType=cv2.LINE_AA):
+def drawText(image, text, point=(10, 10), font=cv2.FONT_HERSHEY_PLAIN, fontScale=2.0, color=(255,255,255), thickness=3, lineType=cv2.LINE_AA):
     result = imageCopy(image)
     return cv2.putText(result, text, point, font, fontScale, color, thickness, lineType)
     
@@ -295,14 +295,14 @@ def computeHist(image, mask=None):
     return np.flipud(h)
 
 
-def equalizeHist(image):
+def histogramEqualize(image):
     if len(image.shape) == 2:
         return cv2.equalizeHist(image)
     else:
         ch1, ch2, ch3 = splitImage(image)
-        ch1_eq = equalizeHist(ch1)
-        ch2_eq = equalizeHist(ch2)
-        ch3_eq = equalizeHist(ch3)
+        ch1_eq = histogramEqualize(ch1)
+        ch2_eq = histogramEqualize(ch2)
+        ch3_eq = histogramEqualize(ch3)
         return mergeImage(ch1_eq, ch2_eq, ch3_eq)
 
 

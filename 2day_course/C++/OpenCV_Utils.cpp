@@ -485,3 +485,45 @@ void imagePerspectiveTransformation(Mat &image, Mat &result, vector<Point> src_p
     warpPerspective(image, result, M, size, interpolation);
     return;
 }
+void imageHoughLines(Mat &image, vector<Vec2f> &lines, double rho, double theta, int threshold) 
+{
+    lines.clear();
+    HoughLines(image, lines, rho, theta, threshold);
+    return;
+}
+void drawHoughLines(Mat &result, vector<Vec2f> &lines, Scalar color, int thickness) 
+{
+    if(result.channels()==1)
+        convertColor(result, result, COLOR_GRAY2BGR);
+    std::vector<cv::Vec2f>::const_iterator it= lines.begin();
+    while (it!=lines.end()) 
+    {
+        float rho = (*it)[0];
+        float theta = (*it)[1];
+        Point pt1(rho/cos(theta), 0); 
+        Point pt2((rho-result.rows*sin(theta))/cos(theta), result.rows);
+        line(result, pt1, pt2, color, thickness);
+	    ++it;
+	}
+	return;
+}
+void imageHoughLinesP(Mat &image, vector<Vec4i> &lines, double rho, double theta, int threshold, double minLineLength, double maxLineGap) 
+{
+    lines.clear();
+    HoughLinesP(image,lines,rho,theta,threshold, minLineLength, maxLineGap);
+    return;
+}
+void drawHoughLinesP(Mat &result, vector<Vec4i> &lines, Scalar color, int thickness) 
+{
+    if(result.channels()==1)
+        convertColor(result, result, COLOR_GRAY2BGR);
+ 	vector<Vec4i>::const_iterator it= lines.begin();
+    while (it!=lines.end()) 
+    {
+        Point pt1((*it)[0],(*it)[1]);
+        Point pt2((*it)[2],(*it)[3]);
+        line( result, pt1, pt2, color, thickness);
+        ++it;
+    }
+  	return;
+}
