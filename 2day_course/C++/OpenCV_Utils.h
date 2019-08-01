@@ -34,3 +34,11 @@ void drawCircle(Mat &image, Mat &result, Point center, int radius,  Scalar color
 void drawEllipse(Mat &image, Mat &result, Point center, Size axis, double angle, double startAngle, double endAngle, Scalar color = Scalar(255, 0, 0), int thickness = 3);
 void drawPolygon(Mat &image, Mat &result, vector<Point> points, bool isClosed, Scalar color = Scalar(255, 0, 0), int thickness = 3);
 void drawText(Mat& image, Mat &result, const string& text, Point point = Point(10, 10), int font = FONT_HERSHEY_PLAIN, double fontScale = 2.0, Scalar color = Scalar(255, 255, 255), int thickness = 3);
+void addImage(Mat &image1, Mat &image2, Mat &result); 
+void addWeightedImage(Mat &image1, Mat &image2, Mat &result, double w1, double w2 = -1);
+void imageThreshold(Mat &image, Mat &result, double thresh=128, double maxval = 255, int type = THRESH_BINARY);
+void imageBlur(Mat &image, Mat &result, int ksize=2.0);
+void imageGaussianBlur(Mat &image, Mat &result, int ksize=2.0, double sigmaX=2.0, double sigmaY=2.0);
+void imageMedianBlur(Mat &image, Mat &result, int ksize=2.0);
+void imageBilateralFilter(Mat &image, Mat &result, int ksize=2.0, double sigmaColor=2.0, double sigmaSpace=2.0);
+void imageFiltering(Mat &image, Mat &result, Mat &kernel, int ddepth = -1);

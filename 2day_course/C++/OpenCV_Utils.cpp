@@ -88,22 +88,26 @@ vector<int> imageParameters(string imagename,Mat &image)
     return Result;
 }
 int getPixel(Mat &image, int x, int y, int c) {
-    if( image.type() == CV_8UC1) {
+    if( image.type() == CV_8UC1) 
+    {
         uchar* pointer = image.ptr<uchar>(y);
         return pointer[x];
     }
-    else if( image.type() == CV_8UC3) {
+    else if( image.type() == CV_8UC3) 
+    {
         uchar* pointer = image.ptr<uchar>(y);
         return pointer[x*3+c];
     }
 }
 void setPixel(Mat &image, int x, int y, int value, int c) {
-    if( image.type() == CV_8UC1) {
+    if( image.type() == CV_8UC1) 
+    {
         uchar* pointer = image.ptr<uchar>(y);
         pointer[x] = value;
         return;
     }
-    else if( image.type() == CV_8UC3) {
+    else if( image.type() == CV_8UC3) 
+    {
         uchar* pointer = image.ptr<uchar>(y);
         pointer[x*3+c]= value;
         return;;
@@ -223,5 +227,56 @@ void drawText(Mat& image, Mat &result, const string& text, Point point, int font
 {
     result = imageCopy(image);
     putText(result, text, point, font, fontScale, color, thickness);
+    return;
+}
+void addImage(Mat &image1, Mat &image2, Mat &result) 
+{
+    add(image1, image2, result);
+}
+void addWeightedImage(Mat &image1, Mat &image2, Mat &result, double w1, double w2) 
+{
+    result = imageCopy(image1);
+    if( w2 == -1) 
+        addWeighted(image1, w1*0.01, image2, (100.0-w1)*0.01,0, result);
+    else 
+        addWeighted(image1, w1*0.01, image2, w2*0.01, 0, result);
+    return;
+}
+void imageThreshold(Mat &image, Mat &result, double thresh, double maxval, int type) 
+{
+    result = imageCopy(image);
+    threshold(image, result, thresh, maxval, type);
+    return;
+}
+void imageBlur(Mat &image, Mat &result, int ksize) 
+{
+    result = imageCopy(image);
+    Size kernelSize(ksize*2-1, ksize*2-1);
+    blur(image, result, kernelSize);
+    return;
+}
+void imageGaussianBlur(Mat &image, Mat &result, int ksize, double sigmaX, double sigmaY) 
+{
+    result = imageCopy(image);
+    Size kernelSize(ksize*2-1, ksize*2-1);
+    GaussianBlur(image, result, kernelSize, sigmaX, sigmaY);
+    return;
+}
+void imageMedianBlur(Mat &image, Mat &result, int ksize) 
+{
+    result = imageCopy(image);
+    medianBlur(image, result, ksize*2-1);
+    return;
+}
+void imageBilateralFilter(Mat &image, Mat &result, int ksize, double sigmaColor, double sigmaSpace) 
+{
+    result = imageCopy(image);
+    bilateralFilter(image, result, ksize*2-1, sigmaColor, sigmaSpace);
+    return;
+}
+void imageFiltering(Mat &image, Mat &result, Mat &kernel, int ddepth) 
+{
+    result = imageCopy(image);
+    filter2D(image, result, ddepth, kernel);
     return;
 }
