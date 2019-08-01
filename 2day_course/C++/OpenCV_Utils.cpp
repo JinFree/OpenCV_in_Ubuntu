@@ -147,7 +147,7 @@ void polyROI(Mat &image, Mat &result, vector<Point> points)
     bitwise_and(result, image, result);
     return;
 }
-void convertColor(Mat &image, Mat &result, int flag=COLOR_BGR2GRAY)
+void convertColor(Mat &image, Mat &result, int flag)
 {
     cvtColor(image, result, flag);
     return;
@@ -278,5 +278,210 @@ void imageFiltering(Mat &image, Mat &result, Mat &kernel, int ddepth)
 {
     result = imageCopy(image);
     filter2D(image, result, ddepth, kernel);
+    return;
+}
+void imageEdgePrewitt(Mat &image, Mat &result) 
+{
+    float kernel_x[] = {-1, 0, 1,
+                        -1, 0, 1,
+                        -1, 0, 1};
+	Mat kernelx(3, 3, CV_32F,kernel_x);
+	float kernel_y[] = {-1, -1, -1,
+	                    0, 0, 0,
+	                    1, 1, 1};
+	Mat kernely(3, 3, CV_32F,kernel_y);
+	Mat dx, dy;
+	imageFiltering(image, dx, kernelx);
+	imageFiltering(image, dy, kernely);
+	result = dx+dy;
+	return;
+}
+void imageEdgeSobel(Mat &image, Mat &result) 
+{
+    Mat dx, dy;
+    Sobel(image, dx, -1, 1, 0, 3);
+    Sobel(image, dy, -1, 0, 1, 3);
+	result = dx+dy;
+	return;
+}
+void imageEdgeScharr(Mat &image, Mat &result) 
+{
+    Mat dx, dy;
+    Scharr(image, dx, -1, 1, 0);
+    Scharr(image, dy, -1, 0, 1);
+	result = dx+dy;
+	return;
+}
+void imageEdgeLaplacianCV(Mat &image, Mat &result) 
+{
+    Laplacian(image, result, -1, 1);
+	return;
+}
+void imageEdgeLaplacianFilter2D(Mat &image, Mat &result) 
+{
+    float kernel_[] = {-1, -1, -1, 
+                       -1, 8, -1, 
+                       -1, -1, -1};
+	Mat kernel(3, 3, CV_32F,kernel_);
+	imageFiltering(image, result, kernel);
+	return;
+}
+void imageEdgeLoG(Mat &image, Mat &result) 
+{
+    float kernel_[] = {0, 0, -1, 0, 0, 
+                       0, -1, -2, -1, 0, 
+                       -1, -2, 16, -2, -1, 
+                       0, -1, -2, -1, 0, 
+                       0, 0, -1, 0, 0};
+	Mat kernel(5, 5, CV_32F,kernel_);
+	imageFiltering(image, result, kernel);
+	return;
+}
+void cannyEdge(Mat &image, Mat &result, double threshold1, double threshold2) 
+{
+    Canny(image, result, threshold1, threshold2);
+    return;
+}
+void computeHist(Mat &image, Mat &result) 
+{
+    Mat histogram;
+    if( image.channels() == 1) 
+    {
+        int histSize = 256;
+	    float range[] = { 0, 256 };
+	    const float* histRange = { range };
+	    calcHist(&image, 1, 0, Mat(), histogram, 1, &histSize, &histRange);
+	    int hist_w = 256; 
+	    int hist_h = 300;
+	    int bin_w = cvRound((double)hist_w / (double)histSize);
+	    Mat histImage(hist_h, hist_w, CV_8UC1, Scalar(0, 0, 0));
+	    normalize(histogram, histogram, 0, histImage.rows, NORM_MINMAX, -1, Mat());
+	    for (int i = 1; i < histSize; i++) 
+		    line(histImage, Point(bin_w*(i - 1), hist_h - cvRound(histogram.at<float>(i - 1))), Point(bin_w*(i), hist_h - cvRound(histogram.at<float>(i))), 255, 2, 8, 0);
+	    result = imageCopy(histImage);
+	    return;
+	}
+    else 
+    {
+        vector<Mat> channels;
+        splitImage(image, channels);
+        int i;
+        for ( i=0 ; i < 3 ; i++)
+            computeHist(channels[i], channels[i]);
+        mergeImage(channels, result);
+        return;
+    }
+}
+void histogramEqualize(Mat &image, Mat &result) 
+{
+    if( image.channels() == 1) 
+    {
+        equalizeHist(image, result);
+	    return;
+	}
+    else 
+    {
+        vector<Mat> channels;
+        splitImage(image, channels);
+        int i;
+        for ( i=0 ; i < 3 ; i++)
+            histogramEqualize(channels[i], channels[i]);
+        mergeImage(channels, result);
+        return;
+    }
+}
+void imageDilation(Mat &image, Mat &result, Mat &kernel, int iterations) 
+{
+    dilate(image, result, kernel, Point(), iterations);
+    return;
+}
+void imageErosion(Mat &image, Mat &result, Mat &kernel, int iterations) 
+{
+    erode(image, result, kernel, Point(), iterations);
+    return;
+}
+void imageMorphologicalGradient(Mat &image, Mat &result) 
+{
+    float kernel_[] = {1, 1, 1, 
+                       1, 1, 1, 
+                       1, 1, 1};
+	Mat kernel(3, 3, CV_32F,kernel_);
+    Mat dilation, erosion;
+    imageDilation(image, dilation, kernel);
+    imageErosion(image, erosion, kernel);
+    result = dilation-erosion;
+    return;
+}
+void imageOpening(Mat &image, Mat &result, int iterations) 
+{
+    float kernel_[] = {1, 1, 1, 
+                       1, 1, 1, 
+                       1, 1, 1};
+	Mat kernel(3, 3, CV_32F,kernel_);
+    imageErosion(image, result, kernel, iterations);
+    imageDilation(result, result, kernel, iterations);
+    return;
+}
+void imageClosing(Mat &image, Mat &result, int iterations) 
+{
+    float kernel_[] = {1, 1, 1, 
+                       1, 1, 1, 
+                       1, 1, 1};
+	Mat kernel(3, 3, CV_32F,kernel_);
+    imageDilation(image, result, kernel, iterations);
+    imageErosion(result, result, kernel, iterations);
+    return;
+}
+void imageMorphologyKernel(Mat &result, int shape, int size) 
+{
+    result = getStructuringElement(shape, Size(size, size));
+    return;
+}
+void imageMorphologyEx(Mat &image, Mat &result, int op, Mat &kernel, int iterations) 
+{
+    morphologyEx(image, result, op, kernel, Point(), iterations);
+    return;
+}
+void imageResize(Mat &image, Mat &result, Size dsize, double fx, double fy, int interpolation) 
+{
+    resize(image, result, dsize, fx, fy, interpolation);
+    return;
+}
+void imageTranslation(Mat &image, Mat &result, Size size, double dx, double dy, int interpolation) 
+{
+    Mat M = (Mat_<float>(2,3) << 1, 0, dx, 0, 1, dy);
+    warpAffine(image, result, M, size, interpolation);
+    return;
+}
+void imageRotation(Mat &image, Mat &result, Point center, double angle, double scale, Size size, int interpolation) 
+{
+    Mat M = getRotationMatrix2D(center, angle, scale);
+    warpAffine(image, result, M, size, interpolation);
+    return;
+}
+void imageAffineTransformation(Mat &image, Mat &result, vector<Point> src_pts, vector<Point> dst_pts, Size size, int  interpolation) 
+{
+    Point2f srcTri[3], dstTri[3];
+    int i;
+    for ( i=0 ; i<3; i++) 
+    {
+        srcTri[i] = src_pts[i];
+        dstTri[i] = dst_pts[i];
+    }
+    Mat M = getAffineTransform(srcTri, dstTri);
+    warpAffine(image, result, M, size, interpolation);
+    return;
+}
+void imagePerspectiveTransformation(Mat &image, Mat &result, vector<Point> src_pts, vector<Point> dst_pts, Size size, int  interpolation) 
+{
+    Point2f srcTri[4], dstTri[4];
+    int i;
+    for ( i=0 ; i<4; i++) 
+    {
+        srcTri[i] = src_pts[i];
+        dstTri[i] = dst_pts[i];
+    }
+    Mat M = getPerspectiveTransform(srcTri, dstTri);
+    warpPerspective(image, result, M, size, interpolation);
     return;
 }
