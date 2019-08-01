@@ -140,6 +140,7 @@ Mat fillPolyROI(Mat &image, vector<Point> points)
         fillPoly(result, fillContAll, Scalar(255));
     else 
         fillPoly(result, fillContAll, Scalar(255, 255, 255));
+    return result;
 }
 void polyROI(Mat &image, Mat &result, vector<Point> points) 
 {
@@ -178,7 +179,7 @@ void rangeColor(Mat &image, Mat &result, Scalar &min, Scalar &max)
     inRange(image, min, max, result);
     return;
 }
-void splitColor(Mat &image, Mat &result, Scalar &min, Scalar &max, int flag) 
+void splitColor(Mat &image, Mat &result, Scalar &min, Scalar &max) 
 {
     Mat mask = imageCopy(image);
     rangeColor(mask, mask, min, max);
@@ -526,4 +527,125 @@ void drawHoughLinesP(Mat &result, vector<Vec4i> &lines, Scalar color, int thickn
         ++it;
     }
   	return;
+}
+void splitTwoSideLines(vector<Vec4i> &lines, vector<vector<float>> &lefts, vector<vector<float>> &rights, float slope_threshold)
+{
+    int i;
+    lefts.clear();
+    rights.clear();
+    vector<float> temp;
+    for( i = 0 ; i < lines.size() ; i++ )
+    {
+        temp.clear();
+        Vec4i line = lines[i];
+        int x1, y1, x2, y2;
+        x1 = line[0];
+        y1 = line[1];
+        x2 = line[2];
+        y2 = line[3];
+        if (x1 - x2 == 0)
+            continue;
+        float slope = (float)(y2-y1)/(float)(x2-x1);
+        if (abs(slope) < slope_threshold)
+            continue;
+        if( slope <= 0)
+        {
+            temp.push_back(slope);
+            temp.push_back(x1);
+            temp.push_back(y1);
+            temp.push_back(x2);
+            temp.push_back(y2);
+            lefts.push_back(temp);
+        }
+        else
+        {
+            temp.push_back(slope);
+            temp.push_back(x1);
+            temp.push_back(y1);
+            temp.push_back(x2);
+            temp.push_back(y2);
+            rights.push_back(temp);
+        }
+    }
+    return;
+}
+void splitOneSideLines(vector<Vec4i> &lines, vector<vector<float>> &arranged_lines, float slope_threshold)
+{
+    int i;
+    arranged_lines.clear();
+    vector<float> temp;
+    for( i = 0 ; i < lines.size() ; i++ )
+    {
+        temp.clear();
+        Vec4i line = lines[i];
+        int x1, y1, x2, y2;
+        x1 = line[0];
+        y1 = line[1];
+        x2 = line[2];
+        y2 = line[3];
+        if (x1 - x2 == 0)
+            continue;
+        float slope = (float)(y2-y1)/(float)(x2-x1);
+        if (abs(slope) < slope_threshold)
+            continue;
+        temp.push_back(slope);
+        temp.push_back(x1);
+        temp.push_back(y1);
+        temp.push_back(x2);
+        temp.push_back(y2);
+        arranged_lines.push_back(temp);
+    }
+    return;
+}
+bool comp(vector<float> a, vector<float> b)
+{
+    return (a[0] > b[0]);
+}
+void medianPoint(vector<vector<float>> &lines, vector<float> &line)
+{
+    line.clear();
+    size_t size = lines.size();
+    if (size == 0)
+        return;
+    sort(lines.begin(), lines.end(), comp);
+    line = lines[(int)(size/2.0)];
+    return;
+}
+int interpolate(int x1, int y1, int x2, int y2, int y)
+{
+    return int(float(y - y1) * float(x2-x1) / float(y2-y1) + x1);
+}
+void lineFittingOneSide(Mat &image, Mat &result, vector<Vec4i> &lines, Scalar color, int thickness, float slope_threshold)
+{
+    result = imageCopy(image);
+    int height = image.rows;
+    vector<vector<float>> arrangedLines;
+    splitOneSideLines(lines, arrangedLines, slope_threshold);
+    vector<float> medianLine;
+    medianPoint(arrangedLines, medianLine);
+    int min_y = int(height * 0.6);
+    int max_y = height;
+    int min_x = interpolate(medianLine[1], medianLine[2], medianLine[3], medianLine[4], min_y);
+    int max_x = interpolate(medianLine[1], medianLine[2], medianLine[3], medianLine[4], max_y);
+    line(result, Point(min_x, min_y), Point(max_x, max_y), color, thickness);
+    result;
+}
+void lineFitting(Mat &image, Mat &result, vector<Vec4i> &lines, Scalar color, int thickness, float slope_threshold)
+{
+    result = imageCopy(image);
+    int height = image.rows;
+    vector<vector<float>> lefts, rights;
+    splitTwoSideLines(lines, lefts, rights, slope_threshold);
+    vector<float> left, right;
+    medianPoint(lefts, left);
+    medianPoint(rights, right);
+    int min_y = int(height * 0.6);
+    int max_y = height;
+    int min_x_left = interpolate(left[1], left[2], left[3], left[4], min_y);
+    int max_x_left = interpolate(left[1], left[2], left[3], left[4], max_y);
+    int min_x_right = interpolate(right[1], right[2], right[3], right[4], min_y);
+    int max_x_right = interpolate(right[1], right[2], right[3], right[4], max_y);
+    line(result, Point(min_x_left, min_y), Point(max_x_left, max_y), color, thickness);
+    line(result, Point(min_x_right, min_y), Point(max_x_right, max_y), color, thickness);
+    return;
 }

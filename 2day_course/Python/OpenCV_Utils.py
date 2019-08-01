@@ -440,7 +440,7 @@ def splitTwoSideLines(lines, slope_threshold = (5. * np.pi / 180.)):
 
 
 def splitOneSideLines(lines, slope_threshold = (5. * np.pi / 180.)):
-    lines = []
+    arranged_lines = []
     for line in lines:
         x1 = line[0,0]
         y1 = line[0,1]
@@ -451,8 +451,8 @@ def splitOneSideLines(lines, slope_threshold = (5. * np.pi / 180.)):
         slope = (float)(y2-y1)/(float)(x2-x1)
         if abs(slope) < slope_threshold:
             continue
-        lines.append([slope, x1, y1, x2, y2])
-    return lines
+        arranged_lines.append([slope, x1, y1, x2, y2])
+    return arranged_lines
 
 
 def medianPoint(x):
@@ -470,12 +470,12 @@ def interpolate(x1, y1, x2, y2, y):
 def lineFittingOneSide(image, lines, color = (0,0,255), thickness = 3, slope_threshold = (5. * np.pi / 180.)):
     result = imageCopy(image)
     height = image.shape[0]
-    lines = splitOneSideLines(lines, slope_threshold)
-    line = medianPoint(lines)
+    arrangedLines = splitOneSideLines(lines, slope_threshold)
+    medianLine = medianPoint(arrangedLines)
     min_y = int(height*0.6)
     max_y = height
-    min_x = interpolate(line[1], line[2], line[3], line[4], min_y)
-    max_x = interpolate(line[1], line[2], line[3], line[4], max_y)
+    min_x = interpolate(medianLine[1], medianLine[2], medianLine[3], medianLine[4], min_y)
+    max_x = interpolate(medianLine[1], medianLine[2], medianLine[3], medianLine[4], max_y)
     cv2.line(result, (min_x, min_y), (max_x, max_y), color, thickness)
     return result
 

@@ -67,3 +67,10 @@ void imageHoughLines(Mat &image, vector<Vec2f> &lines, double rho = 1.0, double 
 void drawHoughLines(Mat &result, vector<Vec2f> &lines, Scalar color = Scalar(0, 0, 255), int thickness = 3);
 void imageHoughLinesP(Mat &image, vector<Vec4i> &lines, double rho = 1.0, double theta = PI/180.0, int threshold = 100, double minLineLength = 10.0, double maxLineGap = 100.0);
 void drawHoughLinesP(Mat &result, vector<Vec4i> &lines, Scalar color = Scalar(0, 0, 255), int thickness = 3);
+void splitTwoSideLines(vector<Vec4i> &lines, vector<vector<float>> &lefts, vector<vector<float>> &rights, float slope_threshold = (5.0 * PI / 180.0));
+void splitOneSideLines(vector<Vec4i> &lines, vector<vector<float>> &arranged_lines, float slope_threshold = (5.0 * PI / 180.0));
+bool comp(vector<float> a, vector<float> b);
+void medianPoint(vector<vector<float>> &lines, vector<float> &line);
+int interpolate(int x1, int y1, int x2, int y2, int y);
+void lineFittingOneSide(Mat &image, Mat &result, vector<Vec4i> &lines, Scalar color = Scalar(0, 0, 255), int thickness = 3, float slope_threshold = (5.0 * PI / 180.0));
+void lineFitting(Mat &image, Mat &result, vector<Vec4i> &lines, Scalar color = Scalar(0, 0, 255), int thickness = 3, float slope_threshold = (5.0 * PI / 180.0));

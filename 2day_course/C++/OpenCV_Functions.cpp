@@ -10,6 +10,7 @@ void processingSingleImage(string imagePath, string outputPath)
     imageShow("Opened Image", image);
     Mat result;
     imageProcessing(image, result);
+    cout << "test" << endl;
     imageShow("Result Image", result);
     imageWrite(outputPath, result);
     return;
