@@ -2,6 +2,17 @@ from OpenCV_Functions import *
 
 road_image_01 = "/home/opencv-mds/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidWhiteCurve.jpg"
 
+'''
+def imageRead(openpath, flag=cv2.IMREAD_UNCHANGED):
+    image = cv2.imread(openpath, flag)
+    if image is not None:
+        print("Image Opened")
+        return image
+    else:
+        print("Image Not Opened")
+        print("Program Abort")
+        exit()
+'''
 # cv2.IMREAD_COLOR
 # Blue - Green - Red 순서의 3채널 이미지로 열림
 image_color = imageRead(road_image_01, cv2.IMREAD_COLOR)
@@ -14,7 +25,13 @@ image_gray = imageRead(road_image_01, cv2.IMREAD_GRAYSCALE)
 # 1채널 회색조 이미지는 1채널로 열리고, 3채널 컬러 이미지는 3채널 BGR로 열림
 image_origin = imageRead(road_image_01, cv2.IMREAD_COLOR)
 
-
+'''
+def imageShow(imagename, image, flag=cv2.WINDOW_GUI_EXPANDED):
+    cv2.namedWindow(imagename, flag)
+    cv2.imshow(imagename, image)
+    cv2.waitKey()
+    return
+'''
 # cv2.WINDOW_NORMAL: 좌표와 좌표의 RGB 값 확인 가능, 화면 크기 전환 가능 및 비율 유지
 imageShow("image_color, cv2.WINDOW_NORMAL", image_color, cv2.WINDOW_NORMAL)
 
@@ -30,4 +47,8 @@ imageShow("image_color, cv2.WINDOW_GUI_NORMAL", image_color, cv2.rWINDOW_GUI_NOR
 # cv2.WINDOW_GUI_EXPANDED : 좌표와 좌표의 RGB 값 확인 가능, 화면 크기 전환 가능 및 비율 유지
 imageShow("image_color, cv2.WINDOW_GUI_EXPANDED", image_color, cv2.WINDOW_GUI_EXPANDED)
 
+'''
+def imageWrite(imagename, image):
+    return cv2.imwrite(imagename, image)
+'''
 imageWrite("gray.jpg", image_gray)

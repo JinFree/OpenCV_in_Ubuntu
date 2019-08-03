@@ -47,24 +47,19 @@ def Video(openpath, savepath = "output.avi"):
     while cap.isOpened():
         # Capture frame-by-frame
         ret, frame = cap.read()
-
         if ret:
             # Our operations on the frame come here
-            
             output = OpenCV_Functions.imageProcessing(frame)
             # Write frame-by-frame
             out.write(output)
             # Display the resulting frame
             cv2.imshow("Input", frame)
             cv2.imshow("Output", output)
-
         else:
             break
-
         # waitKey(int(1000.0/fps)) for matching fps of video
         if cv2.waitKey(int(1000.0/fps)) & 0xFF == ord('q'):
             break
-    
     # When everything done, release the capture
     cap.release()
     out.release()
