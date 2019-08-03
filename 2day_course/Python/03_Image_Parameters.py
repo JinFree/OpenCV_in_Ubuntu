@@ -1,9 +1,5 @@
 from OpenCV_Functions import *
 
-imagePath = path_to_images()
-image = imageRead(imagePath)
-imageShow("Opened Image", image)
-
 '''
 def imageParameters(imagename, image):
     height, width = image.shape[0], image.shape[1]
@@ -19,6 +15,9 @@ def imageParameters(imagename, image):
     print("{}.dtype is {}".format(imagename, image.dtype))
     return height, width
 '''
-height, width = imageParameters("Image", image)
 
+imagePath = path_to_images()
+image = imageRead(imagePath)
+imageShow("Opened Image", image)
+height, width = imageParameters("Image", image)
 print(height, width)
