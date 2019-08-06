@@ -16,7 +16,7 @@ def imageParameters(imagename, image):
     return height, width
 '''
 
-imagePath = path_to_images()
+imagePath = "/home/opencv-mds/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidWhiteCurve.jpg"
 image = imageRead(imagePath)
 imageShow("Opened Image", image)
 height, width = imageParameters("Image", image)
