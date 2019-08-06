@@ -24,9 +24,6 @@ def path_to_images():
     traffic_image_04 = "/home/opencv-mds/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/red_light_02.png"
     traffic_image_05 = "/home/opencv-mds/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/yellow_light_01.png"
     traffic_image_06 = "/home/opencv-mds/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/yellow_light_02.png"
-    traffic_image_07 = "/home/opencv-mds/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/traffic_light_image_01.PNG"
-    traffic_image_08 = "/home/opencv-mds/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/traffic_light_image_02.PNG"
-    traffic_image_09 = "/home/opencv-mds/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/traffic_light_image_03.PNG"
     return traffic_image_01
 
 
@@ -74,10 +71,7 @@ def imageList_TrafficLightDetection():
     image_04 = path_to_road_image + "red_light_02.png"
     image_05 = path_to_road_image + "yellow_light_01.png"
     image_06 = path_to_road_image + "yellow_light_02.png"
-    image_07 = path_to_road_image + "traffic_light_image_01.PNG"
-    image_08 = path_to_road_image + "traffic_light_image_02.PNG"
-    image_09 = path_to_road_image + "traffic_light_image_03.PNG"
-
+    
     images=[]
     images.append(image_01)
     images.append(image_02)
@@ -85,9 +79,6 @@ def imageList_TrafficLightDetection():
     images.append(image_04)
     images.append(image_05)
     images.append(image_06)
-    images.append(image_07)
-    images.append(image_08)
-    images.append(image_09)
     return images
 
 
