@@ -46,3 +46,17 @@ roi_new_x1 = 95
 roi_new_y1 = 367
 image2 = PasteRectROI(roi_rect, roi_new_x1, roi_new_y1, image2)
 imageShow("image2", image2)
+
+roi_poly_01 = np.array([[(143,192),(126,212),(126,242),(143,261),(179,261),(192,242),(192,212),(179,192)]], dtype=np.int32)
+image_polyROI_01 = polyROI(image, roi_poly_01)
+imageShow("image_polyROI_01", image_polyROI_01)
+
+pt1 = (95, 367) 
+pt2 = (225, 367)
+pt3 = (225, 459)
+pt4 = (95, 459)
+roi_poly_02 = np.array([[pt1, pt2, pt3, pt4]], dtype=np.int32)
+image_polyROI_02 = polyROI(image, roi_poly_02)
+imageShow("image_polyROI_02", image_polyROI_02)
+
+cv2.destroyAllWindows()
