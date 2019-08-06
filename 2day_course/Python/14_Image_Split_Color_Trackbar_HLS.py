@@ -3,8 +3,8 @@ from OpenCV_Functions import *
 
 def nothing(x):
     pass
-imagePath = "/home/opencv-mds/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/red_light_02.png"
-#imagePath = "/home/opencv-mds/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/green_light_01.png"
+
+imagePath = "/home/opencv-mds/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/green_light_01.png"
 image = imageRead(imagePath) 
 image = convertColor(image, cv2.COLOR_BGR2HLS)
 
