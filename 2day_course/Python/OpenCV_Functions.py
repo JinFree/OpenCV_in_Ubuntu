@@ -44,7 +44,6 @@ def imageList_LaneDetection():
     image_04 = path_to_road_image + "solidYellowCurve2.jpg"
     image_05 = path_to_road_image + "solidYellowLeft.jpg"
     image_06 = path_to_road_image + "whiteCarLaneSwitch.jpg"
-    image_07 = path_to_road_image + "test.png"
 
     images=[]
     images.append(image_01)
@@ -53,7 +52,6 @@ def imageList_LaneDetection():
     images.append(image_04)
     images.append(image_05)
     images.append(image_06)
-    images.append(image_07)
     return images
 
 
@@ -92,7 +90,6 @@ def processingMultipleImages(list_of_images):
 def path_to_videos():
     road_video_01 = "/home/opencv-mds/OpenCV_in_Ubuntu/Data/Lane_Detection_Videos/solidWhiteRight.mp4"
     road_video_02 = "/home/opencv-mds/OpenCV_in_Ubuntu/Data/Lane_Detection_Videos/solidYellowLeft.mp4"
-    road_video_03 = "/home/opencv-mds/OpenCV_in_Ubuntu/Data/Lane_Detection_Videos/challenge.mp4"
     return road_video_01
 
 
@@ -107,12 +104,10 @@ def videoList_LaneDetection():
     path_to_road_video = path_to_data + "Lane_Detection_Videos/"
     road_video_01 = path_to_road_video + "solidWhiteRight.mp4"
     road_video_02 = path_to_road_video + "solidYellowLeft.mp4"
-    road_video_03 = path_to_road_video + "challenge.mp4"
     
     videos=[]
     videos.append(road_video_01)
     videos.append(road_video_02)
-    videos.append(road_video_03)
     return videos
 
 
