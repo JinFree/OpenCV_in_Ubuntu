@@ -492,3 +492,17 @@ def lineFitting(image, lines, color = (0,0,255), thickness = 3, slope_threshold 
     cv2.line(result, (min_x_right, min_y), (max_x_right, max_y), color, thickness)
     return result
 
+
+def houghCircles(image, method=cv2.HOUGH_GRADIENT, dp = 1, minDist = 10, canny = 50, threshold = 30, minRadius = 0, maxRadius = 0):
+    circles = cv2.HoughCircles(image, method, dp, minDist, param1=canny, param2=threshold, minRadius=minRadius, maxRadius=maxRadius)
+    return circles
+
+
+def drawHoughCircles(image, circles):
+    result = imageCopy(image)
+    if circles is None:
+        return result
+    for i in circles[0,:]:
+        cv2.circle(result, (i[0],i[1]), i[2], (0, 255, 0), 2)
+        cv2.circle(result, (i[0],i[1]), 2, (0, 0, 255), -1)
+    return result

@@ -3,6 +3,9 @@ from OpenCV_Utils import *
 
 def imageProcessing(image):
     result = imageCopy(image)
+    result = convertColor(result, cv2.COLOR_BGR2GRAY)
+    circles = houghCircles(result, cv2.HOUGH_GRADIENT, 1, 40, 100, 80, 0, 0)
+    result = drawHoughCircles(image, circles)
     return result
 
 
