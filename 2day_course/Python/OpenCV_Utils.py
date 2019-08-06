@@ -95,8 +95,9 @@ def CutRectROI(image, x1, y1, x2, y2):
     return image[y1:y2, x1:x2]
 
 
-def PasteRectROI(image, x1, y1, x2, y2, dst):
-    dst[y1:y2, x1:x2]=image
+def PasteRectROI(image, x1, y1, dst):
+    y2, x2 = image.shape[:2]
+    dst[y1:y1+y2, x1:x1+x2]=image
     return dst
     
 
