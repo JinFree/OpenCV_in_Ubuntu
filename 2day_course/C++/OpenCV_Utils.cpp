@@ -4,12 +4,14 @@
 Mat imageRead(string openPath, int flag)
 {
 	Mat image = imread(openPath, flag);
-	if(image.empty()) {
+	if(image.empty()) 
+    {
 		cout<<"Image Not Opened"<<endl;
 		cout<<"Program Abort"<<endl;
 		exit(1);
 	}
-	else {
+	else 
+    {
 		cout<<"Image Opened"<<endl;
 		return image;
 	}
@@ -647,5 +649,25 @@ void lineFitting(Mat &image, Mat &result, vector<Vec4i> &lines, Scalar color, in
     int max_x_right = interpolate(right[1], right[2], right[3], right[4], max_y);
     line(result, Point(min_x_left, min_y), Point(max_x_left, max_y), color, thickness);
     line(result, Point(min_x_right, min_y), Point(max_x_right, max_y), color, thickness);
+    return;
+}
+void imageHoughCircles(Mat &image, vector<Vec3f> &circles, int method, double dp, double minDist, double canny, double threshold, double minRadius, double maxRadius)
+{
+    cv::HoughCircles(image, circles, method, dp, minDist, canny, threshold, minRadius, maxRadius);
+    return;
+}
+void drawHoughCircles(Mat &image, Mat &result, vector<Vec3f> &circles)
+{
+    result = imageCopy(image);
+    if (circles.size() == 0)
+        return;
+    for (size_t i = 0 ; i < circles.size(); i++)
+    {
+        Vec3i c = circles[i];
+        Point center = Point(c[0], c[1]);
+        int radius = c[2];
+        cv::circle(result, center, 2, Scalar(0, 0, 255), -1);
+        cv::circle(result, center, radius, Scalar(0, 255, 0), 2);
+    } 
     return;
 }

@@ -4,10 +4,11 @@ using namespace std;
 
 int main(void) 
 {
-    processingSingleImage(path_to_images());
-    //processingMultipleImages(imageList_LaneDetection());
+    // Traffic Light Detection Project
     //processingMultipleImages(imageList_TrafficLightDetection());
 
+    // Lane Detection Project
+    //processingMultipleImages(imageList_LaneDetection());
     //processingSingleVideo(path_to_videos());
     //processingMultipleVideos(videoList_LaneDetection());
     return 0;

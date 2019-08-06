@@ -74,3 +74,5 @@ void medianPoint(vector<vector<float>> &lines, vector<float> &line);
 int interpolate(int x1, int y1, int x2, int y2, int y);
 void lineFittingOneSide(Mat &image, Mat &result, vector<Vec4i> &lines, Scalar color = Scalar(0, 0, 255), int thickness = 3, float slope_threshold = (5.0 * PI / 180.0));
 void lineFitting(Mat &image, Mat &result, vector<Vec4i> &lines, Scalar color = Scalar(0, 0, 255), int thickness = 3, float slope_threshold = (5.0 * PI / 180.0));
+void imageHoughCircles(Mat &image, vector<Vec3f> &circles, int method = HOUGH_GRADIENT, double dp = 1.0, double minDist = 10.0, double canny = 50, double threshold = 30, double minRadius = 0, double maxRadius = 0);
+void drawHoughCircles(Mat &image, Mat &result, vector<Vec3f> &circles);
