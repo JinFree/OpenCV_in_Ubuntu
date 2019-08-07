@@ -1,7 +1,7 @@
 from OpenCV_Utils import *
 
 
-def imageProcessing(image):
+def imageProcessing(image): 
     result = imageCopy(image)
     return result
 
