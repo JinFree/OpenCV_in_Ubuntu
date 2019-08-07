@@ -17,7 +17,7 @@ vector<int> imageParameters(string imagename,Mat &image);
 int getPixel(Mat &image, int x, int y, int c = 0);
 void setPixel(Mat &image, int x, int y, int value, int c = 0);
 void CutRectROI(Mat &image, Mat &result, Point pt1, Point pt2);
-void PasteRectROI(Mat &image, Mat &result, Point pt1, Point pt2);
+void PasteRectROI(Mat &image, Mat &result, Point pt1);
 Mat makeBlackImage(Mat &image, bool color=false);
 Mat fillPolyROI(Mat &image, vector<Point> points);
 void polyROI(Mat &image, Mat &result, vector<Point> points);

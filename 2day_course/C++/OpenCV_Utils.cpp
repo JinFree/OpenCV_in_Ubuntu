@@ -89,7 +89,8 @@ vector<int> imageParameters(string imagename,Mat &image)
     Result.push_back(width);
     return Result;
 }
-int getPixel(Mat &image, int x, int y, int c) {
+int getPixel(Mat &image, int x, int y, int c) 
+{
     if( image.type() == CV_8UC1) 
     {
         uchar* pointer = image.ptr<uchar>(y);
@@ -101,7 +102,8 @@ int getPixel(Mat &image, int x, int y, int c) {
         return pointer[x*3+c];
     }
 }
-void setPixel(Mat &image, int x, int y, int value, int c) {
+void setPixel(Mat &image, int x, int y, int value, int c) 
+{
     if( image.type() == CV_8UC1) 
     {
         uchar* pointer = image.ptr<uchar>(y);
@@ -120,9 +122,11 @@ void CutRectROI(Mat &image, Mat &result, Point pt1, Point pt2)
     result = image(Rect(pt1, pt2)).clone();
     return;
 }
-void PasteRectROI(Mat &image, Mat &result, Point pt1, Point pt2)
+void PasteRectROI(Mat &image, Mat &result, Point pt1)
 {   
-    Mat dstROI(result, Rect(pt1, pt2));
+    int y2 = result.rows + pt1.y;
+    int x2 = result.cols + pt1.x;
+    Mat dstROI(result, Rect(pt1, Point(x2, y2)));
     image.copyTo(dstROI);
     return;
 }
@@ -155,7 +159,6 @@ void convertColor(Mat &image, Mat &result, int flag)
     cvtColor(image, result, flag);
     return;
 }
-
 void splitImage(Mat &image, vector<Mat> &channels) 
 {
     split(image, channels);
