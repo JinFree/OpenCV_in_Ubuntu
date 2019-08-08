@@ -43,7 +43,7 @@ imageShow("image_color, cv2.WINDOW_AUTOSIZE", image_color, cv2.WINDOW_AUTOSIZE)
 imageShow("image_color, cv2.WINDOW_FREERATIO", image_color, cv2.WINDOW_FREERATIO)
 
 # cv2.WINDOW_GUI_NORMAL : 좌표와 좌표의 RGB 값 확인 불가능, 화면 크기 전환 가능 및 비율 유지
-imageShow("image_color, cv2.WINDOW_GUI_NORMAL", image_color, cv2.rWINDOW_GUI_NORMAL)
+imageShow("image_color, cv2.WINDOW_GUI_NORMAL", image_color, cv2.WINDOW_GUI_NORMAL)
 
 # cv2.WINDOW_GUI_EXPANDED : 좌표와 좌표의 RGB 값 확인 가능, 화면 크기 전환 가능 및 비율 유지
 imageShow("image_color, cv2.WINDOW_GUI_EXPANDED", image_color, cv2.WINDOW_GUI_EXPANDED)
