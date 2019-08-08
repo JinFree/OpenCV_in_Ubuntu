@@ -31,7 +31,7 @@ image_gray = imageRead(road_image_01, cv2.IMREAD_GRAYSCALE)
 
 # cv2.IMREAD_UNCHANGED
 # 1채널 회색조 이미지는 1채널로 열리고, 3채널 컬러 이미지는 3채널 BGR로 열림
-image_origin = imageRead(road_image_01, cv2.IMREAD_COLOR)
+image_origin = imageRead(road_image_01, cv2.IMREAD_UNCHANGED)
 
 # cv2.WINDOW_NORMAL: 좌표와 좌표의 RGB 값 확인 가능, 화면 크기 전환 가능 및 비율 유지
 imageShow("image_color, cv2.WINDOW_NORMAL", image_color, cv2.WINDOW_NORMAL)
