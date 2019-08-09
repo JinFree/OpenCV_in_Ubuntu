@@ -3,5 +3,5 @@
 *.o
 *.out
 __pycahe__
-output.*
+output*
 Result*
