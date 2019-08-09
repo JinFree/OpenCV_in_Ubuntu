@@ -646,12 +646,18 @@ void lineFitting(Mat &image, Mat &result, vector<Vec4i> &lines, Scalar color, in
     medianPoint(rights, right);
     int min_y = int(height * 0.6);
     int max_y = height;
-    int min_x_left = interpolate(left[1], left[2], left[3], left[4], min_y);
-    int max_x_left = interpolate(left[1], left[2], left[3], left[4], max_y);
-    int min_x_right = interpolate(right[1], right[2], right[3], right[4], min_y);
-    int max_x_right = interpolate(right[1], right[2], right[3], right[4], max_y);
-    line(result, Point(min_x_left, min_y), Point(max_x_left, max_y), color, thickness);
-    line(result, Point(min_x_right, min_y), Point(max_x_right, max_y), color, thickness);
+    if( !left.empty()) 
+    {
+        int min_x_left = interpolate(left[1], left[2], left[3], left[4], min_y);
+        int max_x_left = interpolate(left[1], left[2], left[3], left[4], max_y);
+        line(result, Point(min_x_left, min_y), Point(max_x_left, max_y), color, thickness);
+    }
+    if( !right.empty())
+    {
+        int min_x_right = interpolate(right[1], right[2], right[3], right[4], min_y);
+        int max_x_right = interpolate(right[1], right[2], right[3], right[4], max_y);
+        line(result, Point(min_x_right, min_y), Point(max_x_right, max_y), color, thickness);
+    }
     return;
 }
 void imageHoughCircles(Mat &image, vector<Vec3f> &circles, int method, double dp, double minDist, double canny, double threshold, double minRadius, double maxRadius)
