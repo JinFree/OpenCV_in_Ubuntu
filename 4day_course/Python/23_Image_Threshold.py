@@ -9,9 +9,9 @@ def imageThreshold(image, thresh=128, maxval=255, type=cv2.THRESH_BINARY):
 image = np.zeros((512, 512), np.uint8)
 for i in range(0, 512):
     for j in range(0, 256):
-        roadColor = setPixel(image, i, j, j)
+        image = setPixel(image, i, j, j)
     for j in range(256, 512):
-        roadColor = setPixel(image, i, j, 256-j)
+        image = setPixel(image, i, j, 256-j)
 imageShow("image", image)
 
 image_THRESH_BINARY = imageThreshold(image, 128, 255, cv2.THRESH_BINARY)
