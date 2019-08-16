@@ -10,8 +10,8 @@ int main(void)
 
     // Lane Detection Project
     //processingSingleImage("/home/opencv-mds/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/test.png");
-    //processingMultipleImages(imageList_LaneDetection());
-    processingSingleVideo(path_to_videos());
+    processingMultipleImages(imageList_LaneDetection());
+    //processingSingleVideo(path_to_videos());
     //processingMultipleVideos(videoList_LaneDetection());
     return 0;
 }
