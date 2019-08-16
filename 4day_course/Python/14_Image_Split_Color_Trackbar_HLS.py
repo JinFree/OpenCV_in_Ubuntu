@@ -13,9 +13,9 @@ cv2.namedWindow('image', cv2.WINDOW_GUI_EXPANDED)
 cv2.createTrackbar('H_lower', 'image', 0, 360, nothing)
 cv2.createTrackbar('L_lower', 'image', 0, 255, nothing)
 cv2.createTrackbar('S_lower', 'image', 0, 255, nothing)
-cv2.createTrackbar('H_upper', 'image', 0, 360, nothing)
-cv2.createTrackbar('L_upper', 'image', 0, 255, nothing)
-cv2.createTrackbar('S_upper', 'image', 0, 255, nothing)
+cv2.createTrackbar('H_upper', 'image', 180, 360, nothing)
+cv2.createTrackbar('L_upper', 'image', 255, 255, nothing)
+cv2.createTrackbar('S_upper', 'image', 255, 255, nothing)
 
 while True:
     cv2.imshow('image', img)

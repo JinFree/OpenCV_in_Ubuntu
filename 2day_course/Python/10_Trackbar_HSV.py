@@ -7,9 +7,9 @@ def nothing(x):
 
 img = np.zeros((10, 10, 3), np.uint8)
 cv2.namedWindow('image', cv2.WINDOW_GUI_EXPANDED)
-cv2.createTrackbar('H', 'image', 0, 360, nothing)
-cv2.createTrackbar('S', 'image', 0, 255, nothing)
-cv2.createTrackbar('V', 'image', 0, 255, nothing)
+cv2.createTrackbar('H', 'image', 180, 360, nothing)
+cv2.createTrackbar('S', 'image', 255, 255, nothing)
+cv2.createTrackbar('V', 'image', 255, 255, nothing)
 
 while True:
     cv2.imshow('image', img)
