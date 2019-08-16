@@ -70,11 +70,14 @@ void drawHoughLines(Mat &result, vector<Vec2f> &lines, Scalar color = Scalar(0, 
 void imageHoughLinesP(Mat &image, vector<Vec4i> &lines, double rho = 1.0, double theta = PI/180.0, int threshold = 100, double minLineLength = 10.0, double maxLineGap = 100.0);
 void drawHoughLinesP(Mat &result, vector<Vec4i> &lines, Scalar color = Scalar(0, 0, 255), int thickness = 3);
 void splitTwoSideLines(vector<Vec4i> &lines, vector<vector<float>> &lefts, vector<vector<float>> &rights, float slope_threshold = (5.0 * PI / 180.0));
+void splitTwoSideLinesForPerspectiveImage(vector<Vec4i> &lines, vector<vector<float>> &lefts, vector<vector<float>> &rights, int middle_x, float slope_threshold = (30.0 * PI / 180.0));
 void splitOneSideLines(vector<Vec4i> &lines, vector<vector<float>> &arranged_lines, float slope_threshold = (5.0 * PI / 180.0));
 bool comp(vector<float> a, vector<float> b);
 void medianPoint(vector<vector<float>> &lines, vector<float> &line);
 int interpolate(int x1, int y1, int x2, int y2, int y);
 void lineFittingOneSide(Mat &image, Mat &result, vector<Vec4i> &lines, Scalar color = Scalar(0, 0, 255), int thickness = 3, float slope_threshold = (5.0 * PI / 180.0));
 void lineFitting(Mat &image, Mat &result, vector<Vec4i> &lines, Scalar color = Scalar(0, 0, 255), int thickness = 3, float slope_threshold = (5.0 * PI / 180.0));
+void lineFittingForPerspectiveImage(Mat &image, Mat &result, vector<Vec4i> &lines, Scalar color = Scalar(0, 0, 255), int thickness = 3, float slope_threshold = (30.0 * PI / 180.0));
 void imageHoughCircles(Mat &image, vector<Vec3f> &circles, int method = HOUGH_GRADIENT, double dp = 1.0, double minDist = 10.0, double canny = 50, double threshold = 30, double minRadius = 0, double maxRadius = 0);
 void drawHoughCircles(Mat &image, Mat &result, vector<Vec3f> &circles);
+void overlayToImage(Mat &backGroungImage, Mat &overlayImage, Mat &dstImage, double fx = 0.2, double fy = 0.2);
