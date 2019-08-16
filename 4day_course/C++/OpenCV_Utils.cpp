@@ -732,11 +732,12 @@ void splitTwoSideLinesForPerspectiveImage(vector<Vec4i> &lines, vector<vector<fl
     }
     return;
 }
-void lineFittingForPerspectiveImage(Mat &image, Mat &result, vector<Vec4i> &lines, Scalar color, int thickness, float slope_threshold)
+int lineFittingForPerspectiveImage(Mat &image, Mat &result, vector<Vec4i> &lines, Scalar color, int thickness, float slope_threshold)
 {
     result = imageCopy(image);
     int height = image.rows;
     int middle_x = int(0.5 * image.cols);
+    int heading_x;
     vector<vector<float> > lefts, rights;
     splitTwoSideLinesForPerspectiveImage(lines, lefts, rights, middle_x, slope_threshold);
     vector<float> left, right;
@@ -767,8 +768,17 @@ void lineFittingForPerspectiveImage(Mat &image, Mat &result, vector<Vec4i> &line
         vector<vector<Point> > fillContAll;
         fillContAll.push_back(pts);
         fillPoly(result, fillContAll, Scalar(0, 255, 0));
+        line(result, Point(min_x_left, min_y), Point(max_x_left, max_y), color, thickness);
+        line(result, Point(min_x_right, min_y), Point(max_x_right, max_y), color, thickness);
+        heading_x = int(0.5 *(min_x_left + min_x_right));
     }
-    return;
+    line(result, Point(middle_x,0), Point(middle_x,height), Scalar(0, 0, 255), 5);
+    int distance = middle_x - heading_x;
+    if(distance != 0)
+    {
+        drawRect(result, result, Point(middle_x, 0), Point(heading_x, 50), Scalar(0, 0, 255), -1);
+    }
+    return distance;
 }
 void imageHoughCircles(Mat &image, vector<Vec3f> &circles, int method, double dp, double minDist, double canny, double threshold, double minRadius, double maxRadius)
 {
