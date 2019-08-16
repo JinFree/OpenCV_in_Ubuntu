@@ -2,6 +2,8 @@
 void imageProcessing(Mat &image, Mat &result)
 {
     result = imageCopy(image);
+    if(result.channels == 4)
+        convertColor(result, result, COLOR_BGRA2BGR);
     return;
 }
 string path_to_images(void)
