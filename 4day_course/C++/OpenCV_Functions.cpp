@@ -2,11 +2,6 @@
 void imageProcessing(Mat &image, Mat &result)
 {
     result = imageCopy(image);
-    Mat cross;
-    imageMorphologyKernel(cross, MORPH_CROSS, 3);
-    imageMorphologyEx(result, result, MORPH_GRADIENT, cross);
-    convertColor(result, result, COLOR_BGR2GRAY);
-    imageThreshold(result, result, 50, 255, THRESH_BINARY);
     return;
 }
 string path_to_images(void)
@@ -32,7 +27,6 @@ void processingSingleImage(string imagePath, string outputPath)
     imageShow("Opened Image", image);
     Mat result;
     imageProcessing(image, result);
-    cout << "test" << endl;
     imageShow("Result Image", result);
     imageWrite(outputPath, result);
     return;

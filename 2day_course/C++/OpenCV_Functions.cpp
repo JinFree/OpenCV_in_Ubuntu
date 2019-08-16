@@ -19,7 +19,7 @@ string path_to_images(void)
     string traffic_image_04 = "/home/opencv-mds/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/red_light_02.png";
     string traffic_image_05 = "/home/opencv-mds/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/yellow_light_01.png";
     string traffic_image_06 = "/home/opencv-mds/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/yellow_light_02.png";
-    return traffic_image_01;
+    return road_image_01;
 }
 void processingSingleImage(string imagePath, string outputPath)
 {
@@ -27,7 +27,6 @@ void processingSingleImage(string imagePath, string outputPath)
     imageShow("Opened Image", image);
     Mat result;
     imageProcessing(image, result);
-    cout << "test" << endl;
     imageShow("Result Image", result);
     imageWrite(outputPath, result);
     return;
