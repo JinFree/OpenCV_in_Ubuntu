@@ -188,6 +188,7 @@ void splitColor(Mat &image, Mat &result, Scalar &min, Scalar &max)
 {
     Mat mask = imageCopy(image);
     rangeColor(mask, mask, min, max);
+    convertColor(mask, mask, COLOR_GRAY2BGR);
     bitwise_and(image, image, result, mask);
     return;
 }
@@ -276,8 +277,9 @@ void imageMedianBlur(Mat &image, Mat &result, int ksize)
 }
 void imageBilateralFilter(Mat &image, Mat &result, int ksize, double sigmaColor, double sigmaSpace) 
 {
-    result = imageCopy(image);
-    bilateralFilter(image, result, ksize*2-1, sigmaColor, sigmaSpace);
+    Mat result_ = imageCopy(image);
+    bilateralFilter(image, result_, ksize*2-1, sigmaColor, sigmaSpace);
+    result = imageCopy(result_);
     return;
 }
 void imageFiltering(Mat &image, Mat &result, Mat &kernel, int ddepth) 
