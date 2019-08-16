@@ -180,15 +180,15 @@ void mergeImage(Mat &ch1, Mat &ch2, Mat &ch3, Mat &image)
 }
 void rangeColor(Mat &image, Mat &result, Scalar &min, Scalar &max) 
 {
-    result = imageCopy(image);
-    inRange(image, min, max, result);
+    Mat result_ = imageCopy(image);
+    inRange(image, min, max, result_);
+    result = imageCopy(result_);
     return;
 }
-void splitColor(Mat &image, Mat &result, Scalar &min, Scalar &max) 
-{
-    Mat mask = imageCopy(image);
+void splitColor(Mat &image, Mat &result, Scalar &min, Scalar &max, int flag) {
+    Mat mask;
+    convertColor(image, mask, flag);
     rangeColor(mask, mask, min, max);
-    convertColor(mask, mask, COLOR_GRAY2BGR);
     bitwise_and(image, image, result, mask);
     return;
 }
