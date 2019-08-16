@@ -124,8 +124,8 @@ void CutRectROI(Mat &image, Mat &result, Point pt1, Point pt2)
 }
 void PasteRectROI(Mat &image, Mat &result, Point pt1)
 {   
-    int y2 = result.rows + pt1.y;
-    int x2 = result.cols + pt1.x;
+    int y2 = image.rows + pt1.y;
+    int x2 = image.cols + pt1.x;
     Mat dstROI(result, Rect(pt1, Point(x2, y2)));
     image.copyTo(dstROI);
     return;
