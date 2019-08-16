@@ -1,4 +1,5 @@
 #include "OpenCV_Functions.h"
+
 void imageProcessing(Mat &image, Mat &result)
 {
     result = imageCopy(image);
