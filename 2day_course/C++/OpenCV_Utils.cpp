@@ -232,8 +232,9 @@ void drawPolygon(Mat &image, Mat &result, vector<Point> points, bool isClosed, S
 }
 void drawText(Mat& image, Mat &result, const string& text, Point point, int font, double fontScale, Scalar color, int thickness) 
 {
-    result = imageCopy(image);
-    putText(result, text, point, font, fontScale, color, thickness);
+    Mat result_ = imageCopy(image);
+    putText(result_, text, point, font, fontScale, color, thickness);
+    result = imageCopy(result_);
     return;
 }
 void addImage(Mat &image1, Mat &image2, Mat &result) 
@@ -251,28 +252,32 @@ void addWeightedImage(Mat &image1, Mat &image2, Mat &result, double w1, double w
 }
 void imageThreshold(Mat &image, Mat &result, double thresh, double maxval, int type) 
 {
-    result = imageCopy(image);
-    threshold(image, result, thresh, maxval, type);
+    Mat result_ = imageCopy(image);
+    threshold(image, result_, thresh, maxval, type);
+    result = imageCopy(result_);
     return;
 }
 void imageBlur(Mat &image, Mat &result, int ksize) 
 {
-    result = imageCopy(image);
+    Mat result_ = imageCopy(image);
     Size kernelSize(ksize*2-1, ksize*2-1);
-    blur(image, result, kernelSize);
+    blur(image, result_, kernelSize);
+    result = imageCopy(result_);
     return;
 }
 void imageGaussianBlur(Mat &image, Mat &result, int ksize, double sigmaX, double sigmaY) 
 {
-    result = imageCopy(image);
+    Mat result_ = imageCopy(image);
     Size kernelSize(ksize*2-1, ksize*2-1);
-    GaussianBlur(image, result, kernelSize, sigmaX, sigmaY);
+    GaussianBlur(image, result_, kernelSize, sigmaX, sigmaY);
+    result = imageCopy(result_);
     return;
 }
 void imageMedianBlur(Mat &image, Mat &result, int ksize) 
 {
-    result = imageCopy(image);
-    medianBlur(image, result, ksize*2-1);
+    Mat result_ = imageCopy(image);
+    medianBlur(image, result_, ksize*2-1);
+    result = imageCopy(result_);
     return;
 }
 void imageBilateralFilter(Mat &image, Mat &result, int ksize, double sigmaColor, double sigmaSpace) 
