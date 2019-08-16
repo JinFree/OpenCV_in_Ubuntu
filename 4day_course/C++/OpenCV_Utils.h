@@ -27,6 +27,8 @@ void mergeImage(vector<Mat> &channels, Mat &image);
 void mergeImage(Mat &ch1, Mat &ch2, Mat &ch3, Mat &image);
 void rangeColor(Mat &image, Mat &result, Scalar &min, Scalar &max, int flag);
 void splitColor(Mat &image, Mat &result, Scalar &min, Scalar &max, int flag);
+void rangeColor(Mat &image, Mat &result, Scalar &min, Scalar &max);
+void splitColor(Mat &image, Mat &result, Scalar &min, Scalar &max);
 void drawLine(Mat &image, Mat &result, Point pt1, Point pt2, Scalar color = Scalar(255, 0, 0), int thickness = 3);
 void drawRect(Mat &image, Mat &result, Point pt1, Point pt2, Scalar color = Scalar(255, 0, 0), int thickness = 3);
 void drawRect(Mat &image, Mat &result, Rect rect, Scalar color = Scalar(255, 0, 0), int thickness = 3);

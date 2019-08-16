@@ -186,9 +186,24 @@ void rangeColor(Mat &image, Mat &result, Scalar &min, Scalar &max, int flag)
     result = imageCopy(mask);
     return;
 }
-void splitColor(Mat &image, Mat &result, Scalar &min, Scalar &max, int flag) {
+void splitColor(Mat &image, Mat &result, Scalar &min, Scalar &max, int flag) 
+{
     Mat mask = imageCopy(image);
     rangeColor(mask, mask, min, max, flag);
+    bitwise_and(image, image, result, mask);
+    return;
+}
+void rangeColor(Mat &image, Mat &result, Scalar &min, Scalar &max) 
+{
+    Mat mask;
+    inRange(mask, min, max, mask);
+    result = imageCopy(mask);
+    return;
+}
+void splitColor(Mat &image, Mat &result, Scalar &min, Scalar &max) 
+{
+    Mat mask = imageCopy(image);
+    rangeColor(mask, mask, min, max);
     bitwise_and(image, image, result, mask);
     return;
 }
