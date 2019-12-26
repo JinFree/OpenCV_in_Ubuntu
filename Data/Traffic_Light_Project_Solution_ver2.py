@@ -3,7 +3,7 @@ def imageProcessing(image):
     image_bgr = imageCopy(image)
     image_blur = imageMedianBlur(image_bgr, 10)
     gray = convertColor(result, cv2.COLOR_BGR2GRAY)
-    hls = convertColor(result, cv2.COLOR_BGR2HLS)
+    hls = convertColor(image_blur, cv2.COLOR_BGR2HLS)
     h, l, s = splitImage(hls)
     l_thresh = imageThreshold(l, 100, 255, cv2.THRESH_TOZERO)
     s_thresh = imageThreshold(s, 120, 255, cv2.THRESH_TOZERO)
