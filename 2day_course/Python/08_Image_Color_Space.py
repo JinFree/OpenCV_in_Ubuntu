@@ -4,8 +4,7 @@ from OpenCV_Functions import *
 def convertColor(image, flag=cv2.COLOR_BGR2GRAY):
     return cv2.cvtColor(image, flag)
 '''
-
-imagePath = "/home/opencv-mds/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/green_light_01.png"
+imagePath = "/home/opencv/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidWhiteCurve.jpg"
 image = imageRead(imagePath) 
 imageShow('image', image)
 
