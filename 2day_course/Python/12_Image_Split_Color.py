@@ -10,13 +10,13 @@ def splitColor(image, lower, upper):
     return cv2.bitwise_and(result, result, mask=mask)
 '''
 
-imagePath = "/home/opencv-mds/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/green_light_01.png"
+imagePath = "/home/opencv/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/green_light_01.png"
 image = imageRead(imagePath) 
 imageShow('image', image)
 
 lower_white_hsv = np.array([0, 0, 150])
 upper_white_hsv = np.array([179, 10, 255])
-lower_yellow_hsv = np.array([20, 75, 150])
+lower_yellow_hsv = np.array([20, 50, 100])
 upper_yellow_hsv = np.array([35, 255, 255])
 
 image_hsv = convertColor(image, cv2.COLOR_BGR2HSV)
