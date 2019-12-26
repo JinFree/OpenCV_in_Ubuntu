@@ -18,6 +18,12 @@ def imageParameters(imagename, image):
 
 imagePath = path_to_images()
 image = imageRead(imagePath)
-imageShow("Opened Image", image)
 height, width = imageParameters("Image", image)
+imageShow("Opened Image", image)
 print(height, width)
+
+
+
+
+
+
