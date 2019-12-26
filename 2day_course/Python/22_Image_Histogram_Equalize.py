@@ -11,7 +11,7 @@ def histogramEqualize(image):
         ch3_eq = histogramEqualize(ch3)
         return mergeImage(ch1_eq, ch2_eq, ch3_eq)
 '''
-imagePath = "/home/opencv-mds/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidYellowCurve2.jpg"
+imagePath = "/home/opencv/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidYellowCurve2.jpg"
 image = imageRead(imagePath) 
 imageShow('image', image)
 image_BGR_equalized = histogramEqualize(image)

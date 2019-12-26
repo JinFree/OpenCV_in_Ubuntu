@@ -6,7 +6,7 @@ def drawCircle(image, center, radius, color=(255, 0, 0), thickness=3, lineType=c
     return cv2.circle(result, center, radius, color, thickness, lineType)
 '''
 
-imagePath = "/home/opencv-mds/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/green_light_01.png"
+imagePath = "/home/opencv/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/green_light_01.png"
 image = imageRead(imagePath) 
 imageShow('image', image)
 
