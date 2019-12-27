@@ -195,7 +195,7 @@ void splitColor(Mat &image, Mat &result, Scalar &min, Scalar &max, int flag)
 }
 void rangeColor(Mat &image, Mat &result, Scalar &min, Scalar &max) 
 {
-    Mat mask;
+    Mat mask = imageCopy(image);
     inRange(mask, min, max, mask);
     result = imageCopy(mask);
     return;
