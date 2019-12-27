@@ -9,7 +9,7 @@ def nothing(x):
     pass
 
 
-imagePath = "/home/opencv-mds/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidWhiteCurve.jpg"
+imagePath = "/home/opencv/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidWhiteCurve.jpg"
 image = imageRead(imagePath) 
 backup = imageCopy(image)
 cv2.namedWindow('image', cv2.WINDOW_GUI_EXPANDED)
