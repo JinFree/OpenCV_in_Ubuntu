@@ -22,7 +22,7 @@ def computeHist(image, mask=None):
     return np.flipud(h)
 '''
 
-imagePath = "/home/opencv/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/green_light_01.png"
+imagePath = "~/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/green_light_01.png"
 image = imageRead(imagePath) 
 imageShow('image', image)
 imageHist = computeHist(image)

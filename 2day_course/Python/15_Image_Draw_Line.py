@@ -6,7 +6,7 @@ def drawLine(image, point1, point2, color=(255, 0, 0), thickness=3, lineType=cv2
     return cv2.line(result, point1, point2, color, thickness, lineType)
 '''
 
-imagePath = "/home/opencv/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/green_light_01.png"
+imagePath = "~/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/green_light_01.png"
 image = imageRead(imagePath) 
 imageShow('image', image)
 

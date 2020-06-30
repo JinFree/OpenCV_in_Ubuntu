@@ -7,7 +7,7 @@ def mergeImage(channel1, channel2, channel3):
     return cv2.merge((channel1, channel2, channel3))
 '''
 
-imagePath = "/home/opencv/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidWhiteCurve.jpg"
+imagePath = "~/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidWhiteCurve.jpg"
 image = imageRead(imagePath) 
 imageShow('image', image)
 

@@ -40,7 +40,7 @@ def Video(openpath, savepath = "output.avi"):
     return
 '''
 
-road_video_01 = "/home/opencv/OpenCV_in_Ubuntu/Data/Lane_Detection_Videos/solidWhiteRight.mp4"
+road_video_01 = "~/OpenCV_in_Ubuntu/Data/Lane_Detection_Videos/solidWhiteRight.mp4"
 
 Video(road_video_01, "output.mp4")
 
