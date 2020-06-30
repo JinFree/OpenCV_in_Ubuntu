@@ -22,7 +22,7 @@ def computeHist(image, mask=None):
     return np.flipud(h)
 '''
 
-imagePath = "/home/opencv-mds/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidWhiteCurve.jpg"
+imagePath = "~/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidWhiteCurve.jpg"
 image = imageRead(imagePath) 
 imageShow('image', image)
 imageHist = computeHist(image)

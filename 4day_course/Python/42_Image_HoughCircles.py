@@ -18,7 +18,7 @@ def nothing(x):
     pass
 
 
-imagePath = "/home/opencv-mds/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/green_light_01.png"
+imagePath = "~/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/green_light_01.png"
 image = imageRead(imagePath)
 backup_bgr = imageCopy(image)
 backup = convertColor(backup_bgr, cv2.COLOR_BGR2GRAY)

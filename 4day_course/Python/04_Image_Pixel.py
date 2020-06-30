@@ -8,7 +8,7 @@ def setPixel(image, x, y, value, c=None):
     return image
 '''
 
-imagePath = "/home/opencv/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidWhiteCurve.jpg"
+imagePath = "~/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidWhiteCurve.jpg"
 image = imageRead(imagePath)
 imageShow("Opened Image", image)
 

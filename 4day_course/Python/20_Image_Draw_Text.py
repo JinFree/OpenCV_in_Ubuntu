@@ -6,7 +6,7 @@ def drawText(image, text, point=(10, 10), font=cv2.FONT_HERSHEY_PLAIN, fontScale
     return cv2.putText(result, text, point, font, fontScale, color, thickness, lineType)
 '''
 
-imagePath = "/home/opencv-mds/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidWhiteCurve.jpg"
+imagePath = "~/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidWhiteCurve.jpg"
 image = imageRead(imagePath) 
 imageShow('image', image)
 

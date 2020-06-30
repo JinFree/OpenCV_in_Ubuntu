@@ -9,7 +9,7 @@ def imageAffineTransformation(image, src_pts, dst_pts, size=None, flags=cv2.INTE
     return cv2.warpAffine(image, M, dsize=size, flags=flags)
 '''
 
-imagePath = "/home/opencv-mds/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidWhiteCurve.jpg"
+imagePath = "~/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidWhiteCurve.jpg"
 image = imageRead(imagePath) 
 
 src_pt1 = [195, 304]

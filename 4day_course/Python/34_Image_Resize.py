@@ -8,7 +8,7 @@ if dsize is None and fx == 0.0 and fy == 0.0:
 return cv2.resize(image, dsize=dsize, fx=fx, fy=fy, interpolation=interpolation)
 '''
 
-imagePath = "/home/opencv-mds/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidWhiteCurve.jpg"
+imagePath = "~/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidWhiteCurve.jpg"
 image = imageRead(imagePath) 
 imageShow("image", image)
 

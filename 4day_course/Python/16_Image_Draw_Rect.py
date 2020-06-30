@@ -6,7 +6,7 @@ def drawRect(image, point1, point2, color=(255, 0, 0), thickness=3, lineType=cv2
     return cv2.rectangle(result, point1, point2, color, thickness, lineType)
 '''
 
-imagePath = "/home/opencv/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidWhiteCurve.jpg"
+imagePath = "~/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidWhiteCurve.jpg"
 image = imageRead(imagePath) 
 imageShow('image', image)
 
