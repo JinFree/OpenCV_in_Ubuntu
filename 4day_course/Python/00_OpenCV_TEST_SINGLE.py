@@ -1,3 +1,5 @@
 from OpenCV_Functions import *
 
-processingSingleImage("~/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidWhiteCurve.jpg")
+import os
+home = os.environ['HOME']
+processingSingleImage(home + "/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidWhiteCurve.jpg")

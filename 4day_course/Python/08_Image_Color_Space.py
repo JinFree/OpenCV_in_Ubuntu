@@ -5,7 +5,9 @@ def convertColor(image, flag=cv2.COLOR_BGR2GRAY):
     return cv2.cvtColor(image, flag)
 '''
 
-imagePath = "~/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidWhiteCurve.jpg"
+import os
+home = os.environ['HOME']
+imagePath = home + "/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidWhiteCurve.jpg"
 image = imageRead(imagePath) 
 imageShow('image', image)
 

@@ -39,8 +39,9 @@ def Video(openpath, savepath = "output.avi"):
     cv2.destroyAllWindows()
     return
 '''
-
-road_video_01 = "~/OpenCV_in_Ubuntu/Data/Lane_Detection_Videos/solidWhiteRight.mp4"
+import os
+home = os.environ['HOME']
+road_video_01 = home + "/OpenCV_in_Ubuntu/Data/Lane_Detection_Videos/solidWhiteRight.mp4"
 
 Video(road_video_01, "output.mp4")
 

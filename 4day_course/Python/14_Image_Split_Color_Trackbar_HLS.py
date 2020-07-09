@@ -4,7 +4,9 @@ from OpenCV_Functions import *
 def nothing(x):
     pass
 
-imagePath = "~/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidWhiteCurve.jpg"
+import os
+home = os.environ['HOME']
+imagePath = home + "/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidWhiteCurve.jpg"
 image = imageRead(imagePath) 
 image = convertColor(image, cv2.COLOR_BGR2HLS)
 

@@ -7,19 +7,24 @@ void imageProcessing(Mat &image, Mat &result)
 }
 string path_to_images(void)
 {   
-    string road_image_01 = "~-mds/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidWhiteCurve.jpg";
-    string road_image_02 = "~-mds/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidWhiteRight.jpg";
-    string road_image_03 = "~-mds/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidYellowCurve.jpg";
-    string road_image_04 = "~-mds/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidYellowCurve2.jpg";
-    string road_image_05 = "~-mds/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidYellowLeft.jpg";
-    string road_image_06 = "~-mds/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/whiteCarLaneSwitch.jpg";
+    char *env = getenv("HOME");
+    string envstring(env);
+    string path_to_project = envstring + "/OpenCV_in_Ubuntu/";
+    string path_to_data = path_to_project + "Data/";
+    
+    string road_image_01 = path_to_data + "Lane_Detection_Images/solidWhiteCurve.jpg";
+    string road_image_02 = path_to_data + "Lane_Detection_Images/solidWhiteRight.jpg";
+    string road_image_03 = path_to_data + "Lane_Detection_Images/solidYellowCurve.jpg";
+    string road_image_04 = path_to_data + "Lane_Detection_Images/solidYellowCurve2.jpg";
+    string road_image_05 = path_to_data + "Lane_Detection_Images/solidYellowLeft.jpg";
+    string road_image_06 = path_to_data + "Lane_Detection_Images/whiteCarLaneSwitch.jpg";
 
-    string traffic_image_01 = "~-mds/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/green_light_01.png";
-    string traffic_image_02 = "~-mds/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/green_light_02.png";
-    string traffic_image_03 = "~-mds/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/red_light_01.png";
-    string traffic_image_04 = "~-mds/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/red_light_02.png";
-    string traffic_image_05 = "~-mds/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/yellow_light_01.png";
-    string traffic_image_06 = "~-mds/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/yellow_light_02.png";
+    string traffic_image_01 = path_to_data + "TrafficLight_Detection/green_light_01.png";
+    string traffic_image_02 = path_to_data + "TrafficLight_Detection/green_light_02.png";
+    string traffic_image_03 = path_to_data + "TrafficLight_Detection/red_light_01.png";
+    string traffic_image_04 = path_to_data + "TrafficLight_Detection/red_light_02.png";
+    string traffic_image_05 = path_to_data + "TrafficLight_Detection/yellow_light_01.png";
+    string traffic_image_06 = path_to_data + "TrafficLight_Detection/yellow_light_02.png";
     return road_image_01;
 }
 void processingSingleImage(string imagePath, string outputPath)
@@ -34,7 +39,9 @@ void processingSingleImage(string imagePath, string outputPath)
 }
 vector<string> imageList_LaneDetection(void)
 {
-    string path_to_project = "~-mds/OpenCV_in_Ubuntu/";
+    char *env = getenv("HOME");
+    string envstring(env);
+    string path_to_project = envstring + "/OpenCV_in_Ubuntu/";
     string path_to_data = path_to_project + "Data/";
     string path_to_road_image = path_to_data + "Lane_Detection_Images/";
 
@@ -56,7 +63,9 @@ vector<string> imageList_LaneDetection(void)
 }
 vector<string> imageList_TrafficLightDetection(void)
 {
-    string path_to_project = "~-mds/OpenCV_in_Ubuntu/";
+    char *env = getenv("HOME");
+    string envstring(env);
+    string path_to_project = envstring + "/OpenCV_in_Ubuntu/";
     string path_to_data = path_to_project + "Data/";
     string path_to_road_image = path_to_data + "TrafficLight_Detection/";
 
@@ -93,8 +102,13 @@ void processingMultipleImages(vector<string> list_of_images)
 }
 string path_to_videos(void)
 {
-    string road_video_01 = "~-mds/OpenCV_in_Ubuntu/Data/Lane_Detection_Videos/solidWhiteRight.mp4";
-    string road_video_02 = "~-mds/OpenCV_in_Ubuntu/Data/Lane_Detection_Videos/solidYellowLeft.mp4";
+    char *env = getenv("HOME");
+    string envstring(env);
+    string path_to_project = envstring + "/OpenCV_in_Ubuntu/";
+    string path_to_data = path_to_project + "Data/";
+    string path_to_road_video = path_to_data + "Lane_Detection_Videos/";
+    string road_video_01 = path_to_road_video + "solidWhiteRight.mp4";
+    string road_video_02 = path_to_road_video + "solidYellowLeft.mp4";
     return road_video_01;
 }
 void processingSingleVideo(string videoPath, string outputPath)
@@ -104,7 +118,9 @@ void processingSingleVideo(string videoPath, string outputPath)
 }
 vector<string> videoList_LaneDetection(void)
 {
-    string path_to_project = "~-mds/OpenCV_in_Ubuntu/";
+    char *env = getenv("HOME");
+    string envstring(env);
+    string path_to_project = envstring + "/OpenCV_in_Ubuntu/";
     string path_to_data = path_to_project + "Data/";
     string path_to_road_video = path_to_data + "Lane_Detection_Videos/";
     string road_video_01 = path_to_road_video + "solidWhiteRight.mp4";

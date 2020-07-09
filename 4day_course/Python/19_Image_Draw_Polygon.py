@@ -7,7 +7,9 @@ def drawPolygon(image, pts, isClosed, color=(255, 0, 0), thickness=3, lineType=c
     return cv2.polylines(result, [pts], isClosed, color, thickness, lineType)
 '''
 
-imagePath = "~/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidWhiteCurve.jpg"
+import os
+home = os.environ['HOME']
+imagePath = home + "/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidWhiteCurve.jpg"
 image = imageRead(imagePath) 
 imageShow('image', image)
 

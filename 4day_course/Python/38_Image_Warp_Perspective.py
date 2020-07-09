@@ -8,8 +8,9 @@ def imagePerspectiveTransformation(image, src_pts, dst_pts, size=None, flags=cv2
     M = cv2.getPerspectiveTransform(src_pts, dst_pts)
     return cv2.warpPerspective(image, M, dsize=size, flags=flags)
 '''
-
-imagePath = "~/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidWhiteCurve.jpg"
+import os
+home = os.environ['HOME']
+imagePath = home + "/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidWhiteCurve.jpg"
 image = imageRead(imagePath) 
 height, width = image.shape[:2]
 

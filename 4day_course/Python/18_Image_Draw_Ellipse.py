@@ -11,7 +11,9 @@ def nothing(x):
     pass
 
 
-imagePath = "~/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/green_light_01.png"
+import os
+home = os.environ['HOME']
+imagePath = home + "/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/green_light_01.png"
 image = imageRead(imagePath) 
 backup = np.copy(image)
 

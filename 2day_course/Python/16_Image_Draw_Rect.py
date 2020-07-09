@@ -6,7 +6,9 @@ def drawRect(image, point1, point2, color=(255, 0, 0), thickness=3, lineType=cv2
     return cv2.rectangle(result, point1, point2, color, thickness, lineType)
 '''
 
-imagePath = "~/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/green_light_01.png"
+import os
+home = os.environ['HOME']
+imagePath = home + "/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/green_light_01.png"
 image = imageRead(imagePath) 
 imageShow('image', image)
 

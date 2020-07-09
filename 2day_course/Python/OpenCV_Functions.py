@@ -1,27 +1,28 @@
 from OpenCV_Utils import *
-
+import os
+home = os.environ['HOME']
 
 def imageProcessing(image):
     result = imageCopy(image)
-    
     return result
 
 
-def path_to_images():
-    road_image_01 = "~/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidWhiteCurve.jpg"
-    road_image_02 = "~/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidWhiteRight.jpg"
-    road_image_03 = "~/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidYellowCurve.jpg"
-    road_image_04 = "~/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidYellowCurve2.jpg"
-    road_image_05 = "~/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidYellowLeft.jpg"
-    road_image_06 = "~/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/whiteCarLaneSwitch.jpg"
-    road_image_07 = "~/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/test.png"
 
-    traffic_image_01 = "~/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/green_light_01.png"
-    traffic_image_02 = "~/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/green_light_02.png"
-    traffic_image_03 = "~/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/red_light_01.png"
-    traffic_image_04 = "~/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/red_light_02.png"
-    traffic_image_05 = "~/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/yellow_light_01.png"
-    traffic_image_06 = "~/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/yellow_light_02.png"
+def path_to_images():
+    road_image_01 = home + "/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidWhiteCurve.jpg"
+    road_image_02 = home + "/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidWhiteRight.jpg"
+    road_image_03 = home + "/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidYellowCurve.jpg"
+    road_image_04 = home + "/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidYellowCurve2.jpg"
+    road_image_05 = home + "/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidYellowLeft.jpg"
+    road_image_06 = home + "/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/whiteCarLaneSwitch.jpg"
+    road_image_07 = home + "/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/test.png"
+
+    traffic_image_01 = home + "/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/green_light_01.png"
+    traffic_image_02 = home + "/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/green_light_02.png"
+    traffic_image_03 = home + "/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/red_light_01.png"
+    traffic_image_04 = home + "/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/red_light_02.png"
+    traffic_image_05 = home + "/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/yellow_light_01.png"
+    traffic_image_06 = home + "/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/yellow_light_02.png"
     return traffic_image_01
 
 
@@ -35,7 +36,7 @@ def processingSingleImage(imagePath, outputPath = "output.jpg"):
 
 
 def imageList_LaneDetection():
-    path_to_project = "~/OpenCV_in_Ubuntu/"
+    path_to_project = home + "/OpenCV_in_Ubuntu/"
     path_to_data = path_to_project + "Data/"
     path_to_road_image = path_to_data + "Lane_Detection_Images/"
 
@@ -57,7 +58,7 @@ def imageList_LaneDetection():
 
 
 def imageList_TrafficLightDetection():
-    path_to_project = "~/OpenCV_in_Ubuntu/"
+    path_to_project = home + "/OpenCV_in_Ubuntu/"
     path_to_data = path_to_project + "Data/"
     path_to_road_image = path_to_data + "TrafficLight_Detection/"
 
@@ -89,8 +90,8 @@ def processingMultipleImages(list_of_images):
 
 
 def path_to_videos():
-    road_video_01 = "~/OpenCV_in_Ubuntu/Data/Lane_Detection_Videos/solidWhiteRight.mp4"
-    road_video_02 = "~/OpenCV_in_Ubuntu/Data/Lane_Detection_Videos/solidYellowLeft.mp4"
+    road_video_01 = home + "/OpenCV_in_Ubuntu/Data/Lane_Detection_Videos/solidWhiteRight.mp4"
+    road_video_02 = home + "/OpenCV_in_Ubuntu/Data/Lane_Detection_Videos/solidYellowLeft.mp4"
     return road_video_01
 
 
@@ -100,7 +101,7 @@ def processingSingleVideo(videoPath, outputPath = "output.avi"):
 
 
 def videoList_LaneDetection():
-    path_to_project = "~/OpenCV_in_Ubuntu/"
+    path_to_project = home + "/OpenCV_in_Ubuntu/"
     path_to_data = path_to_project + "Data/"
     path_to_road_video = path_to_data + "Lane_Detection_Videos/"
     road_video_01 = path_to_road_video + "solidWhiteRight.mp4"

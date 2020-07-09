@@ -19,7 +19,10 @@ def imageWrite(imagename, image):
     return cv2.imwrite(imagename, image)
 '''
 
-road_image_01 = "~/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidWhiteCurve.jpg"
+
+import os
+home = os.environ['HOME']
+road_image_01 = home + "/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidWhiteCurve.jpg"
 
 # cv2.IMREAD_COLOR
 # Blue - Green - Red 순서의 3채널 이미지로 열림

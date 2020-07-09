@@ -30,7 +30,9 @@ def polyROI(image, points):
     return cv2.bitwise_and(image, mask)
 '''
 
-imagePath = "~/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/green_light_01.png"
+import os
+home = os.environ['HOME']
+imagePath = home + "/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/green_light_01.png"
 image = imageRead(imagePath) 
 imageShow('image', image)
 

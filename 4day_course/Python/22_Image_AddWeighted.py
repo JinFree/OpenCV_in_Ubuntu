@@ -11,8 +11,10 @@ def addWeightedImage(image1, w1, imagw2, w2=None):
 def nothing(x):
     pass
 
-imagePath_1 = "~/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidWhiteCurve.jpg"
-imagePath_2 = "~/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidYellowLeft.jpg"
+import os
+home = os.environ['HOME']
+imagePath_1 = home + "/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidWhiteCurve.jpg"
+imagePath_2 = home + "/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidYellowLeft.jpg"
 image_1 = imageRead(imagePath_1) 
 image_2 = imageRead(imagePath_2) 
 

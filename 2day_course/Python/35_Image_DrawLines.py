@@ -43,8 +43,9 @@ def lineFitting(image, lines, color = (0,0,255), thickness = 3, slope_threshold 
     cv2.line(result, (min_x_right, min_y), (max_x_right, max_y), color, thickness)
     return result
 '''
-
-imagePath = "~/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidWhiteCurve.jpg"
+import os
+home = os.environ['HOME']
+imagePath = home + "/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidWhiteCurve.jpg"
 image = imageRead(imagePath) 
 imageShow("image", image)
 

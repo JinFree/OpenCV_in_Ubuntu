@@ -5,11 +5,11 @@ using namespace std;
 int main(void) 
 {
     // Traffic Light Detection Project
-    //processingSingleImage("~-mds/OpenCV_in_Ubuntu/Data/TrafficLight_Detection/green_light_01.png");
+    //processingSingleImage("../../Data/TrafficLight_Detection/green_light_01.png");
     //processingMultipleImages(imageList_TrafficLightDetection());
 
     // Lane Detection Project
-    //processingSingleImage("~-mds/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/test.png");
+    //processingSingleImage("../../Data/Lane_Detection_Images/test.png");
     processingMultipleImages(imageList_LaneDetection());
     //processingSingleVideo(path_to_videos());
     //processingMultipleVideos(videoList_LaneDetection());

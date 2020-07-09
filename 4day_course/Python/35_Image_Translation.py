@@ -9,7 +9,9 @@ def imageTranslation(image, size=None, dx=0.0, dy=0.0, flags=cv2.INTER_LINEAR):
     return cv2.warpAffine(image, M, size, flags=flags)
 '''
 
-imagePath = "~/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidWhiteCurve.jpg"
+import os
+home = os.environ['HOME']
+imagePath = home + "/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidWhiteCurve.jpg"
 image = imageRead(imagePath) 
 height, width = image.shape[:2]
 print(height, width)

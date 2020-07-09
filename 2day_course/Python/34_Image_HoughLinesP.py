@@ -12,8 +12,9 @@ def drawHoughLinesP(image, lines):
             cv2.line(result, (x1, y1), (x2, y2), (0, 0, 255), 3)
     return result
 '''
-
-imagePath = "~/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidWhiteCurve.jpg"
+import os
+home = os.environ['HOME']
+imagePath = home + "/OpenCV_in_Ubuntu/Data/Lane_Detection_Images/solidWhiteCurve.jpg"
 image = imageRead(imagePath) 
 imageShow("image", image)
 
