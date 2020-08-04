@@ -28,7 +28,7 @@ def imageCopy(src):
     return np.copy(src)
 
 
-def Video(openpath, savepath = "output.avi"):
+def Video(openpath, savepath = None):
     cap = cv2.VideoCapture(openpath)
     if cap.isOpened():
         print("Video Opened")
@@ -39,8 +39,10 @@ def Video(openpath, savepath = "output.avi"):
     fps = cap.get(cv2.CAP_PROP_FPS)
     width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-    fourcc = int(cap.get(cv2.CAP_PROP_FOURCC))
-    out = cv2.VideoWriter(savepath, fourcc, fps, (width, height), True)
+    out = None
+    if savepath is not None:
+        fourcc = int(cap.get(cv2.CAP_PROP_FOURCC))
+        out = cv2.VideoWriter(savepath, fourcc, fps, (width, height), True)
     cv2.namedWindow("Input", cv2.WINDOW_GUI_EXPANDED)
     cv2.namedWindow("Output", cv2.WINDOW_GUI_EXPANDED)
     import OpenCV_Functions
@@ -50,8 +52,9 @@ def Video(openpath, savepath = "output.avi"):
         if ret:
             # Our operations on the frame come here
             output = OpenCV_Functions.imageProcessing(frame)
-            # Write frame-by-frame
-            out.write(output)
+            if out is not None:
+                # Write frame-by-frame
+                out.write(output)
             # Display the resulting frame
             cv2.imshow("Input", frame)
             cv2.imshow("Output", output)
@@ -62,7 +65,8 @@ def Video(openpath, savepath = "output.avi"):
             break
     # When everything done, release the capture
     cap.release()
-    out.release()
+    if out is not None:
+        out.release()
     cv2.destroyAllWindows()
     return
 
