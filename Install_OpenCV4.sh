@@ -7,7 +7,7 @@ sudo apt install gcc make cmake curl vim git python-dev python3-dev \
  python3-pytest python3-blosc python3-brotli python3-snappy python3-lz4 zlib1g-dev \
  libblosc-dev liblzma-dev liblz4-dev libzstd-dev libpng-dev libwebp-dev libbz2-dev \
  libopenjp2-7-dev libjpeg-turbo8-dev libjxr-dev liblcms2-dev libcharls-dev libaec-dev \
- libbrotli-dev libsnappy-dev libzopfli-dev libgif-dev libtiff-dev -y
+ libbrotli-dev libsnappy-dev libzopfli-dev libgif-dev libtiff-dev qt5-default -y
 sudo apt-get install -y \
 apt-utils cmake unzip curl pkg-config build-essential \
 gstreamer1.0-tools gstreamer1.0-alsa \
