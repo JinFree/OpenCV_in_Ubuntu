@@ -17,7 +17,6 @@ gstreamer1.0-tools gstreamer1.0-alsa \
  gstreamer1.0-libav \
  libgstreamer1.0-dev \
  libgstreamer-plugins-base1.0-dev \
- libgstreamer-plugins-good1.0-dev \
  libgstreamer-plugins-bad1.0-dev \
  cmake libgflags-dev pyqt5-dev-tools\
  libjpeg-dev libtiff5-dev libpng-dev libavcodec-dev libavformat-dev \
@@ -25,7 +24,7 @@ gstreamer1.0-tools gstreamer1.0-alsa \
  libv4l-dev ffmpeg v4l-utils gstreamer1.0-tools gstreamer1.0-alsa \
  gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad \
  gstreamer1.0-plugins-ugly gstreamer1.0-libav libgstreamer1.0-dev \
- libgstreamer-plugins-base1.0-dev libgstreamer-plugins-good1.0-dev \
+ libgstreamer-plugins-base1.0-dev  \
  libgstreamer-plugins-bad1.0-dev qtbase5-dev libqt4-dev mesa-utils libgl1-mesa-dri \
  libqt4-opengl-dev libatlas-base-dev gfortran libeigen3-dev python2.7-dev \
  python3-dev python-numpy python3-numpy python-pip python3-pip python3-matplotlib
