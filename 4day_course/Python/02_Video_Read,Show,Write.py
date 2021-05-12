@@ -14,7 +14,7 @@ def Video(openpath, savepath = None):
     height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
     out = None
     if savepath is not None:
-        fourcc = int(cap.get(cv2.CAP_PROP_FOURCC))
+        fourcc = cv2.VideoWriter_fourcc(*'XVID')
         out = cv2.VideoWriter(savepath, fourcc, fps, (width, height), True)
     cv2.namedWindow("Input", cv2.WINDOW_GUI_EXPANDED)
     cv2.namedWindow("Output", cv2.WINDOW_GUI_EXPANDED)
@@ -48,4 +48,4 @@ import os
 home = os.environ['HOME']
 road_video_01 = home + "/OpenCV_in_Ubuntu/Data/Lane_Detection_Videos/solidWhiteRight.mp4"
 
-Video(road_video_01, "output.mp4")
+Video(road_video_01, "output.avi")
