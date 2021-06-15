@@ -505,6 +505,7 @@ def houghCircles(image, method=cv2.HOUGH_GRADIENT, dp = 1, minDist = 10, canny =
 
 
 def drawHoughCircles(image, circles):
+    result = imageCopy(image)
     if circles is None:
         return result
     for i in circles[0,:]:
