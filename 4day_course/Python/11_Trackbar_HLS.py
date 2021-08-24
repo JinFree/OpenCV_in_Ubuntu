@@ -13,7 +13,7 @@ cv2.createTrackbar('S', 'image', 255, 255, nothing)
 
 while True:
     cv2.imshow('image', img)
-    if cv2.waitKey(1) & 0xFF == 27:
+    if cv2.waitKey(100) & 0xFF == 27:
         break
     h = cv2.getTrackbarPos('H', 'image')
     l = cv2.getTrackbarPos('L', 'image')
