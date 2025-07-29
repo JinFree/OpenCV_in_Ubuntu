@@ -25,7 +25,7 @@ def imageParameters(imageName, image):
     
     return height, width
 
-def getPixel(image: cv2.Mat, x: int, y: int, c: int=None) -> list[int, np.ndarray]:
+def getPixel(image, x, y, c=None):
     """
     Get pixel value at (x, y) in the image.
     """
@@ -38,7 +38,7 @@ def getPixel(image: cv2.Mat, x: int, y: int, c: int=None) -> list[int, np.ndarra
         raise ValueError("Unsupported image format")
     return retVal
 
-def setPixel(image: cv2.Mat, x: int, y: int, value: np.ndarray, c: int=None) -> None:
+def setPixel(image, x, y, value, c=None):
     """
     Set pixel value at (x, y) in the image.
     """
@@ -49,13 +49,13 @@ def setPixel(image: cv2.Mat, x: int, y: int, value: np.ndarray, c: int=None) -> 
     else:
         raise ValueError("Unsupported image format")
     
-def imageCopy(image_src: cv2.Mat) -> cv2.Mat:
+def imageCopy(image_src):
     """
     Create a copy of the image.
     """
     return np.copy(image_src)
 
-def cutRectROI(image_src: cv2.Mat, x1: int, y1: int, x2: int, y2: int) -> cv2.Mat:
+def cutRectROI(image_src, x1, y1, x2, y2):
     """
     Cut a rectangular Region of Interest (ROI) from the image.
     """
@@ -63,7 +63,7 @@ def cutRectROI(image_src: cv2.Mat, x1: int, y1: int, x2: int, y2: int) -> cv2.Ma
     assert x1 < x2 and y1 < y2, "Invalid ROI coordinates"
     return imageCopy(image_src[y1:y2, x1:x2])
 
-def pasteRectROI(image_src: cv2.Mat, image_roi: cv2.Mat, x1: int, y1: int) -> cv2.Mat:
+def pasteRectROI(image_src, image_roi, x1, y1):
     """
     Paste a rectangular Region of Interest (ROI) into the image.
     """
@@ -73,46 +73,46 @@ def pasteRectROI(image_src: cv2.Mat, image_roi: cv2.Mat, x1: int, y1: int) -> cv
     image_dst[y1:y1 + image_roi.shape[0], x1:x1 + image_roi.shape[1]] = image_roi
     return imageCopy(image_dst)
 
-def fillPolygon(image_src: cv2.Mat, points: np.ndarray, color: list[list, tuple]) -> cv2.Mat:
+def fillPolygon(image_src, points, color):
     assert len(points.shape) == 2 and points.shape[1] == 2, "Points must be a Nx2 array"
     image_dst = imageCopy(image_src)
     cv2.fillPoly(image_dst, [points.astype(np.int32)], color)
     return image_dst
     
-def makeBlackImage(height: int, width: int, is_color: bool = False) -> cv2.Mat:
+def makeBlackImage(height, width, is_color = False):
     if is_color:
         return np.zeros((height, width, 3), dtype=np.uint8)
     else:
         return np.zeros((height, width), dtype=np.uint8)    
 
-def polyROI(image_src: cv2.Mat, points: np.ndarray) -> cv2.Mat:
+def polyROI(image_src, points):
     mask = makeBlackImage(image_src.shape[0], image_src.shape[1], is_color=(len(image_src.shape) == 3))
     white_color = 255 if len(image_src.shape) == 2 else (255, 255, 255)
     mask = fillPolygon(mask, points, white_color)
     return cv2.bitwise_and(image_src, mask)
 
-def splitImage(image_src: cv2.Mat) -> list[cv2.Mat]:
+def splitImage(image_src):
     if len(image_src.shape) == 3:
         return cv2.split(image_src)
     else:
         raise ValueError("Image is not a color image")
     
-def mergeImages(channels: list[cv2.Mat]) -> cv2.Mat:
+def mergeImages(channels):
     if len(channels) == 3:
         return cv2.merge(channels)
     else:
         raise ValueError("Invalid number of channels for merging")
     
-def convertColor(image_src: cv2.Mat, flag: int = cv2.COLOR_BGR2GRAY) -> cv2.Mat:
+def convertColor(image_src, flag = cv2.COLOR_BGR2GRAY):
     return imageCopy(cv2.cvtColor(image_src, flag))
 
 def nothing(x):
     pass
 
-def empty_image(size: int = 10) -> cv2.Mat:
+def empty_image(size = 10):
     return np.zeros((size, size, 3), np.uint8)
 
-def bar_RGB(size: int = 10):
+def bar_RGB(size = 10):
     window_name = "RGB Trackbar"
     cv2.namedWindow(window_name)
     cv2.resizeWindow(window_name, size, size)
@@ -133,7 +133,7 @@ def bar_RGB(size: int = 10):
             break
     cv2.destroyAllWindows()
     
-def bar_HLS(size: int = 10):
+def bar_HLS(size = 10):
     window_name = "HLS Trackbar"
     cv2.namedWindow(window_name)
     cv2.resizeWindow(window_name, size, size)
@@ -155,7 +155,7 @@ def bar_HLS(size: int = 10):
             break
     cv2.destroyAllWindows()
     
-def bar_HSV(size: int = 10):
+def bar_HSV(size = 10):
     window_name = "HSV Trackbar"
     cv2.namedWindow(window_name)
     cv2.resizeWindow(window_name, size, size)
@@ -177,16 +177,16 @@ def bar_HSV(size: int = 10):
             break
     cv2.destroyAllWindows()
     
-def rangeColor(image_src: cv2.Mat, lower: list[list[int], np.array], upper: list[list[int], np.array]) -> cv2.Mat:
+def rangeColor(image_src, lower, upper):
     image_dst = imageCopy(image_src)
     return cv2.inRange(image_dst, lower, upper)
 
-def splitColor(image_src: cv2.Mat, lower: list[list[int], np.array], upper: list[list[int], np.array]) -> cv2.Mat:
+def splitColor(image_src, lower, upper):
     image_dst = imageCopy(image_src)
     mask = rangeColor(image_src, lower, upper)
     return cv2.bitwise_and(image_dst, image_dst, mask=mask)
 
-def bar_HSV_range(image_src:cv2.Mat):
+def bar_HSV_range(image_src):
     image_hsv = convertColor(image_src, cv2.COLOR_BGR2HSV)
     window_name = "HSV range Trackbar"
     height, width = image_src.shape[:2]
@@ -217,7 +217,7 @@ def bar_HSV_range(image_src:cv2.Mat):
     cv2.destroyAllWindows()
     return image_bgr
 
-def bar_HLS_range(image_src:cv2.Mat):
+def bar_HLS_range(image_src):
     image_hls = convertColor(image_src, cv2.COLOR_BGR2HLS)
     window_name = "HLS range Trackbar"
     height, width = image_src.shape[:2]
@@ -248,7 +248,7 @@ def bar_HLS_range(image_src:cv2.Mat):
     cv2.destroyAllWindows()
     return image_bgr
 
-def drawLine(image_src: cv2.Mat, pt1: tuple[int, int], pt2: tuple[int, int], color: list[int, np.ndarray], thickness: int = 1) -> cv2.Mat:
+def drawLine(image_src, pt1, pt2, color, thickness = 1):
     """
     Draw a line on the image from pt1 to pt2 with the specified color and thickness.
     """
@@ -256,7 +256,7 @@ def drawLine(image_src: cv2.Mat, pt1: tuple[int, int], pt2: tuple[int, int], col
     cv2.line(image_dst, pt1, pt2, color, thickness)
     return image_dst
     
-def drawRect(image_src: cv2.Mat, pt1: tuple[int, int], pt2: tuple[int, int], color: list[int, np.ndarray], thickness: int = 1) -> cv2.Mat:
+def drawRect(image_src, pt1, pt2, color, thickness = 1):
     """
     Draw a rectangle on the image with the specified top-left and bottom-right points, color, and thickness.
     """
@@ -264,7 +264,7 @@ def drawRect(image_src: cv2.Mat, pt1: tuple[int, int], pt2: tuple[int, int], col
     cv2.rectangle(image_dst, pt1, pt2, color, thickness)
     return image_dst
 
-def drawCircle(image_src: cv2.Mat, center: tuple[int, int], radius: int, color: list[int, np.ndarray], thickness: int = 1) -> cv2.Mat:
+def drawCircle(image_src, center, radius, color, thickness = 1):
     """
     Draw a circle on the image with the specified center, radius, color, and thickness.
     """
@@ -272,7 +272,7 @@ def drawCircle(image_src: cv2.Mat, center: tuple[int, int], radius: int, color: 
     cv2.circle(image_dst, center, radius, color, thickness)
     return image_dst
 
-def drawPolygon(image_src: cv2.Mat, points: np.ndarray, isClosed:bool, color: list[int, np.ndarray], thickness: int = 1) -> cv2.Mat:
+def drawPolygon(image_src, points, isClosed, color, thickness = 1):
     """
     Draw a polygon on the image with the specified points, color, and thickness.
     """
@@ -281,7 +281,7 @@ def drawPolygon(image_src: cv2.Mat, points: np.ndarray, isClosed:bool, color: li
     cv2.polylines(image_dst, [points.astype(np.int32)], isClosed=isClosed, color=color, thickness=thickness)
     return image_dst
 
-def drawText(image_src: cv2.Mat, text: str, org: tuple[int, int], fontFace: int, fontScale: float, color: list[int, np.ndarray], thickness: int = 1) -> cv2.Mat:
+def drawText(image_src, text, org, fontFace, fontScale, color, thickness = 1):
     """
     Draw text on the image at the specified position with the specified font, scale, color, and thickness.
     """
@@ -289,7 +289,7 @@ def drawText(image_src: cv2.Mat, text: str, org: tuple[int, int], fontFace: int,
     cv2.putText(image_dst, text, org, fontFace, fontScale, color, thickness)
     return image_dst
 
-def imageThreshold(image_src: cv2.Mat, thresh: int = 127, maxval: int = 255, type: int = cv2.THRESH_BINARY) -> cv2.Mat:
+def imageThreshold(image_src, thresh = 127, maxval = 255, type = cv2.THRESH_BINARY):
     """
     Apply a binary threshold to the image.
     """
@@ -297,7 +297,7 @@ def imageThreshold(image_src: cv2.Mat, thresh: int = 127, maxval: int = 255, typ
     _, image_dst = cv2.threshold(image_dst, thresh, maxval, type)
     return image_dst
 
-def computeHistogram(image_src: cv2.Mat) -> np.ndarray:
+def computeHistogram(image_src):
     """
     Compute the histogram of the image for the specified channels.
     """
@@ -320,7 +320,7 @@ def computeHistogram(image_src: cv2.Mat) -> np.ndarray:
             cv2.polylines(h,[pts],False,col)
     return np.flipud(h)
 
-def equalizeHistogram(image_src: cv2.Mat) -> cv2.Mat:
+def equalizeHistogram(image_src):
     """
     Apply histogram equalization to the image.
     """
@@ -336,12 +336,12 @@ def equalizeHistogram(image_src: cv2.Mat) -> cv2.Mat:
     else:
         raise ValueError("Unsupported image format for histogram equalization")
     
-def imageBlur(image_src: cv2.Mat, ksize_x: int, ksize_y: int) -> cv2.Mat:
+def imageBlur(image_src, ksize_x, ksize_y):
     assert ksize_x > 0 and ksize_y > 0, "Kernel size must be greater than 0"
     assert ksize_x % 2 == 1 and ksize_y % 2 == 1, "Kernel size must be odd"
     return cv2.blur(image_src, (ksize_x, ksize_y))
 
-def bar_blur(image_src: cv2.Mat):
+def bar_blur(image_src):
     window_name = "Blur Trackbar"
     height, width = image_src.shape[:2]
     cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
@@ -361,12 +361,12 @@ def bar_blur(image_src: cv2.Mat):
     cv2.destroyAllWindows()
     return image_dst
 
-def imageGaussianBlur(image_src: cv2.Mat, ksize_x: int, ksize_y: int, sigmaX: float = 0, sigmaY: float = 0) -> cv2.Mat:
+def imageGaussianBlur(image_src, ksize_x, ksize_y, sigmaX = 0, sigmaY = 0):
     assert ksize_x > 0 and ksize_y > 0, "Kernel size must be greater than 0"
     assert ksize_x % 2 == 1 and ksize_y % 2 == 1, "Kernel size must be odd"
     return cv2.GaussianBlur(image_src, (ksize_x, ksize_y), sigmaX, sigmaY)
 
-def bar_gaussian_blur(image_src: cv2.Mat):
+def bar_gaussian_blur(image_src):
     window_name = "Gaussian Blur Trackbar"
     height, width = image_src.shape[:2]
     cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
@@ -390,12 +390,12 @@ def bar_gaussian_blur(image_src: cv2.Mat):
     cv2.destroyAllWindows()
     return image_dst
 
-def imageMedianBlur(image_src: cv2.Mat, ksize: int) -> cv2.Mat:
+def imageMedianBlur(image_src, ksize):
     assert ksize > 0, "Kernel size must be greater than 0"
     assert ksize % 2 == 1, "Kernel size must be odd"
     return cv2.medianBlur(image_src, ksize)
 
-def bar_median_blur(image_src: cv2.Mat):
+def bar_median_blur(image_src):
     window_name = "Median Blur Trackbar"
     height, width = image_src.shape[:2]
     cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
@@ -412,11 +412,11 @@ def bar_median_blur(image_src: cv2.Mat):
     cv2.destroyAllWindows()
     return image_dst
 
-def imageBilateralFilter(image_src: cv2.Mat, d: int, sigmaColor: float, sigmaSpace: float) -> cv2.Mat:
+def imageBilateralFilter(image_src, d, sigmaColor, sigmaSpace):
     assert d > 0, "Diameter must be greater than 0"
     return cv2.bilateralFilter(image_src, d, sigmaColor, sigmaSpace)
 
-def bar_bilateral_filter(image_src: cv2.Mat):
+def bar_bilateral_filter(image_src):
     window_name = "Bilateral Filter Trackbar"
     height, width = image_src.shape[:2]
     cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
@@ -436,14 +436,14 @@ def bar_bilateral_filter(image_src: cv2.Mat):
     cv2.destroyAllWindows()
     return image_dst
 
-def imageFiltering(image_src: cv2.Mat, kernel: np.ndarray, ddepth: int=-1) -> cv2.Mat:
+def imageFiltering(image_src, kernel, ddepth=-1):
     """
     Apply a custom filter to the image using the specified kernel.
     """
     assert kernel.ndim == 2, "Kernel must be a 2D array"
     return cv2.filter2D(image_src, ddepth, kernel)
 
-def houghCircles(image_src: cv2.Mat, dp: float = 1, minDist: float = 10, canny: int = 50, threshold: int = 30, minRadius: int = 0, maxRadius: int = 0) -> list[tuple[int, int, int]]:
+def houghCircles(image_src, dp = 1, minDist = 10, canny = 50, threshold = 30, minRadius = 0, maxRadius = 0):
     """
     Detect circles in the image using the Hough Circle Transform.
     """
@@ -453,7 +453,7 @@ def houghCircles(image_src: cv2.Mat, dp: float = 1, minDist: float = 10, canny: 
         return [(x, y, r) for x, y, r in circles[0, :]]
     return []
 
-def drawHoughCircles(image_src: cv2.Mat, circles: list[tuple[int, int, int]]) -> cv2.Mat:
+def drawHoughCircles(image_src, circles):
     """
     Draw detected circles on the image.
     """
@@ -463,7 +463,7 @@ def drawHoughCircles(image_src: cv2.Mat, circles: list[tuple[int, int, int]]) ->
         cv2.circle(image_dst, (x, y), 3, (0, 0, 255), -1)  # Draw center point
     return image_dst
     
-def bar_hough_circles(image_src: cv2.Mat) -> cv2.Mat:
+def bar_hough_circles(image_src):
     image_gray = imageCopy(image_src) if len(image_src.shape) == 2 else imageCopy(cv2.cvtColor(image_src, cv2.COLOR_BGR2GRAY))
     window_name = "Hough Circles Trackbar"
     height, width = image_src.shape[:2]
@@ -492,7 +492,7 @@ def bar_hough_circles(image_src: cv2.Mat) -> cv2.Mat:
     cv2.destroyAllWindows()
     return image_dst
 
-def imageEdgePrewitt(image_src: cv2.Mat) -> cv2.Mat:
+def imageEdgePrewitt(image_src):
     kernelX = np.array([[-1, 0, 1],
                         [-1, 0, 1],
                         [-1, 0, 1]], np.float32) 
@@ -503,26 +503,26 @@ def imageEdgePrewitt(image_src: cv2.Mat) -> cv2.Mat:
     imageDeltaY = imageFiltering(image_src, kernelY)
     return imageDeltaX + imageDeltaY
     
-def imageEdgeSobel(image_src: cv2.Mat) -> cv2.Mat:
+def imageEdgeSobel(image_src):
     imageDeltaX = cv2.Sobel(image_src, -1, 1, 0, ksize=3) 
     imageDeltaY = cv2.Sobel(image_src, -1, 0, 1, ksize=3) 
     return imageDeltaX + imageDeltaY
 
-def imageEdgeScharr(image_src: cv2.Mat) -> cv2.Mat:
+def imageEdgeScharr(image_src):
     imageDeltaX = cv2.Scharr(image_src, -1, 1, 0)
     imageDeltaY = cv2.Scharr(image_src, -1, 0, 1) 
     return imageDeltaX + imageDeltaY
 
-def imageEdgeLaplacianCV(image_src: cv2.Mat, ksize: int=-1) -> cv2.Mat:
+def imageEdgeLaplacianCV(image_src, ksize=-1):
     return cv2.Laplacian(image_src, ksize) # ksize 지정 가능
 
-def imageEdgeCanny(image_src: cv2.Mat, threshold1: int = 100, threshold2: int = 200) -> cv2.Mat:
+def imageEdgeCanny(image_src, threshold1 = 100, threshold2 = 200):
     """
     Apply Canny edge detection to the image.
     """
     return cv2.Canny(image_src, threshold1, threshold2)
 
-def bar_edge_detection(image_src: cv2.Mat):
+def bar_edge_detection(image_src):
     window_name = "Edge Detection Trackbar"
     height, width = image_src.shape[:2]
     cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
@@ -540,32 +540,32 @@ def bar_edge_detection(image_src: cv2.Mat):
     cv2.destroyAllWindows()
     return image_dst
 
-def imageDilation(image_src: cv2.Mat, kernel: np.ndarray = np.ones((3, 3), np.uint8), iterations: int = 1) -> cv2.Mat:
+def imageDilation(image_src, kernel = np.ones((3, 3), np.uint8), iterations = 1):
     return cv2.dilate(image_src, kernel, iterations=iterations)
 
-def imageErosion(image_src: cv2.Mat, kernel: np.ndarray = np.ones((3, 3), np.uint8), iterations: int = 1) -> cv2.Mat:
+def imageErosion(image_src, kernel = np.ones((3, 3), np.uint8), iterations = 1):
     return cv2.erode(image_src, kernel, iterations=iterations)
 
-def imageMorphologicalGradient(image_src: cv2.Mat) -> cv2.Mat:
+def imageMorphologicalGradient(image_src):
     dilated = imageDilation(image_src)
     eroded = imageErosion(image_src)
     return cv2.subtract(dilated, eroded)
 
-def imageOpening(image_src: cv2.Mat) -> cv2.Mat:
+def imageOpening(image_src):
     eroded = imageErosion(image_src)
     return imageDilation(eroded)
 
-def imageClosing(image_src: cv2.Mat) -> cv2.Mat:
+def imageClosing(image_src):
     dilated = imageDilation(image_src)
     return imageErosion(dilated)
 
-def getMorphologyKernel(flag:int = cv2.MORPH_RECT, size: int=5) -> np.ndarray:
+def getMorphologyKernel(flag = cv2.MORPH_RECT, size=5):
     return cv2.getStructuringElement(flag, (size, size))
 
-def imageMorphologyEx(image_src: cv2.Mat, operation: int, kernel: np.ndarray, iterations: int=1) -> cv2.Mat:
+def imageMorphologyEx(image_src, operation, kernel, iterations=1):
     return cv2.morphologyEx(image_src, operation, kernel, iterations=iterations)
 
-def imageAffineTransform(image_src: cv2.Mat, src_points: np.ndarray, dst_points: np.ndarray, size: tuple[int, int]=None, flags: int=cv2.INTER_NEAREST) -> cv2.Mat:
+def imageAffineTransform(image_src, src_points, dst_points, size=None, flags=cv2.INTER_NEAREST):
     """
     Apply an affine transformation to the image using the specified source and destination points.
     """
@@ -575,7 +575,7 @@ def imageAffineTransform(image_src: cv2.Mat, src_points: np.ndarray, dst_points:
     matrix = cv2.getAffineTransform(src_points.astype(np.float32), dst_points.astype(np.float32))
     return cv2.warpAffine(image_src, matrix, size, flags=flags)
 
-def imagePerspectiveTransform(image_src: cv2.Mat, src_points: np.ndarray, dst_points: np.ndarray, size: tuple[int, int]=None, flags: int=cv2.INTER_NEAREST) -> cv2.Mat:
+def imagePerspectiveTransform(image_src, src_points, dst_points, size=None, flags=cv2.INTER_NEAREST):
     """
     Apply a perspective transformation to the image using the specified source and destination points.
     """
@@ -585,7 +585,7 @@ def imagePerspectiveTransform(image_src: cv2.Mat, src_points: np.ndarray, dst_po
     matrix = cv2.getPerspectiveTransform(src_points.astype(np.float32), dst_points.astype(np.float32))
     return cv2.warpPerspective(image_src, matrix, size, flags=flags)
 
-def houghLines(image_src: cv2.Mat, rho: float = 1, theta: float = np.pi / 180, threshold: int = 100) -> list[tuple[int, int, int, int]]:
+def houghLines(image_src, rho = 1, theta = np.pi / 180, threshold = 100):
     lines = cv2.HoughLines(image_src, rho, theta, threshold)
     if lines is not None:
         return_lines = []
@@ -603,13 +603,13 @@ def houghLines(image_src: cv2.Mat, rho: float = 1, theta: float = np.pi / 180, t
         return return_lines
     return []
 
-def drawHoughLines(image_src: cv2.Mat, lines: list[tuple[int, int, int, int]], color: list[int, np.ndarray] = (0, 255, 0), thickness: int = 2) -> cv2.Mat:
+def drawHoughLines(image_src, lines, color = (0, 255, 0), thickness = 2):
     image_dst = imageCopy(image_src)
     for x1, y1, x2, y2 in lines:
         cv2.line(image_dst, (x1, y1), (x2, y2), color, thickness)
     return image_dst
 
-def bar_hough_lines(image_src: cv2.Mat) -> cv2.Mat:
+def bar_hough_lines(image_src):
     window_name = "Hough Lines Trackbar"
     height, width = image_src.shape[:2]
     cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
@@ -636,19 +636,19 @@ def bar_hough_lines(image_src: cv2.Mat) -> cv2.Mat:
     cv2.destroyAllWindows()
     return image_dst
 
-def houghLinesP(image_src: cv2.Mat, rho: float = 1, theta: float = np.pi / 180, threshold: int = 100, minLineLength: int = 50, maxLineGap: int = 10) -> list[tuple[int, int, int, int]]:
+def houghLinesP(image_src, rho = 1, theta = np.pi / 180, threshold = 100, minLineLength = 50, maxLineGap = 10):
     lines = cv2.HoughLinesP(image_src, rho, theta, threshold, minLineLength=minLineLength, maxLineGap=maxLineGap)
     if lines is not None:
         return [(x1, y1, x2, y2) for x1, y1, x2, y2 in lines[:, 0]]
     return []
 
-def drawHoughLinesP(image_src: cv2.Mat, lines: list[tuple[int, int, int, int]], color: list[int, np.ndarray] = (0, 255, 0), thickness: int = 2) -> cv2.Mat:
+def drawHoughLinesP(image_src, lines, color = (0, 255, 0), thickness = 2):
     image_dst = imageCopy(image_src)
     for x1, y1, x2, y2 in lines:
         cv2.line(image_dst, (x1, y1), (x2, y2), color, thickness)
     return image_dst
 
-def bar_hough_lines_p(image_src: cv2.Mat) -> cv2.Mat:
+def bar_hough_lines_p(image_src):
     window_name = "Hough Lines P Trackbar"
     height, width = image_src.shape[:2]
     cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
