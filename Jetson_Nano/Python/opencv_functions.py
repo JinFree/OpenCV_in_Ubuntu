@@ -191,7 +191,7 @@ def bar_HSV_range(image_src):
     window_name = "HSV range Trackbar"
     height, width = image_src.shape[:2]
     cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
-    cv2.resizeWindow(window_name, width, height)
+    # cv2.resizeWindow(window_name, width, height)
     cv2.createTrackbar("H_lower", window_name, 0, 179, nothing)
     cv2.createTrackbar("S_lower", window_name, 0, 255, nothing)
     cv2.createTrackbar("V_lower", window_name, 0, 255, nothing)
@@ -222,7 +222,7 @@ def bar_HLS_range(image_src):
     window_name = "HLS range Trackbar"
     height, width = image_src.shape[:2]
     cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
-    cv2.resizeWindow(window_name, width, height)
+    # cv2.resizeWindow(window_name, width, height)
     cv2.createTrackbar("H_lower", window_name, 0, 179, nothing)
     cv2.createTrackbar("L_lower", window_name, 0, 255, nothing)
     cv2.createTrackbar("S_lower", window_name, 0, 255, nothing)
@@ -345,7 +345,7 @@ def bar_blur(image_src):
     window_name = "Blur Trackbar"
     height, width = image_src.shape[:2]
     cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
-    cv2.resizeWindow(window_name, width, height)
+    # cv2.resizeWindow(window_name, width, height)
     cv2.createTrackbar("ksize_x", window_name, 3, 20, nothing)
     cv2.createTrackbar("ksize_y", window_name, 3, 20, nothing)
     
@@ -370,7 +370,7 @@ def bar_gaussian_blur(image_src):
     window_name = "Gaussian Blur Trackbar"
     height, width = image_src.shape[:2]
     cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
-    cv2.resizeWindow(window_name, width, height)
+    # cv2.resizeWindow(window_name, width, height)
     cv2.createTrackbar("ksize_x", window_name, 3, 20, nothing)
     cv2.createTrackbar("ksize_y", window_name, 3, 20, nothing)
     cv2.createTrackbar("sigmaX", window_name, 0, 100, nothing)
@@ -399,7 +399,7 @@ def bar_median_blur(image_src):
     window_name = "Median Blur Trackbar"
     height, width = image_src.shape[:2]
     cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
-    cv2.resizeWindow(window_name, width, height)
+    # cv2.resizeWindow(window_name, width, height)
     cv2.createTrackbar("ksize", window_name, 3, 20, nothing)
     
     while True:
@@ -420,7 +420,7 @@ def bar_bilateral_filter(image_src):
     window_name = "Bilateral Filter Trackbar"
     height, width = image_src.shape[:2]
     cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
-    cv2.resizeWindow(window_name, width, height)
+    # cv2.resizeWindow(window_name, width, height)
     cv2.createTrackbar("d", window_name, 5, 100, nothing)
     cv2.createTrackbar("sigmaColor", window_name, 75, 200, nothing)
     cv2.createTrackbar("sigmaSpace", window_name, 75, 200, nothing)
@@ -468,13 +468,13 @@ def bar_hough_circles(image_src):
     window_name = "Hough Circles Trackbar"
     height, width = image_src.shape[:2]
     cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
-    cv2.resizeWindow(window_name, width, height)
+    # cv2.resizeWindow(window_name, width, height)
     cv2.createTrackbar("dp", window_name, 1, 10, nothing)
     cv2.createTrackbar("minDist", window_name, 10, 100, nothing)
     cv2.createTrackbar("canny", window_name, 50, 100, nothing)
     cv2.createTrackbar("threshold", window_name, 30, 100, nothing)
-    cv2.createTrackbar("minRadius", window_name, 0, 100, nothing)
-    cv2.createTrackbar("maxRadius", window_name, 0, 100, nothing)
+    cv2.createTrackbar("minRadius", window_name, 10, 100, nothing)
+    cv2.createTrackbar("maxRadius", window_name, 50, 100, nothing)
     
     while True:
         dp = cv2.getTrackbarPos("dp", window_name)
@@ -526,7 +526,7 @@ def bar_edge_detection(image_src):
     window_name = "Edge Detection Trackbar"
     height, width = image_src.shape[:2]
     cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
-    cv2.resizeWindow(window_name, width, height)
+    # cv2.resizeWindow(window_name, width, height)
     cv2.createTrackbar("threshold1", window_name, 100, 255, nothing)
     cv2.createTrackbar("threshold2", window_name, 200, 255, nothing)
     
@@ -613,7 +613,7 @@ def bar_hough_lines(image_src):
     window_name = "Hough Lines Trackbar"
     height, width = image_src.shape[:2]
     cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
-    cv2.resizeWindow(window_name, width, height)
+    # cv2.resizeWindow(window_name, width, height)
     cv2.createTrackbar("threshold1", window_name, 100, 255, nothing)
     cv2.createTrackbar("threshold2", window_name, 200, 255, nothing)
     cv2.createTrackbar("rho", window_name, 1, 10, nothing)
@@ -652,7 +652,7 @@ def bar_hough_lines_p(image_src):
     window_name = "Hough Lines P Trackbar"
     height, width = image_src.shape[:2]
     cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
-    cv2.resizeWindow(window_name, width, height)
+    # cv2.resizeWindow(window_name, width, height)
     cv2.createTrackbar("threshold1", window_name, 100, 255, nothing)
     cv2.createTrackbar("threshold2", window_name, 200, 255, nothing)
     cv2.createTrackbar("rho", window_name, 1, 10, nothing)
