@@ -10,7 +10,7 @@ def parse_args():
     parser.add_argument("--output", type=str, default="", help="Path to save the processed output. If empty, display the result.")
     return parser.parse_args()
 
-def main(save_path: str="", input_path: str="") -> None:
+def main(save_path="", input_path=""):
     if (is_image(input_path)):
         process_image(save_path, input_path)
     elif (is_video(input_path)):
@@ -19,7 +19,7 @@ def main(save_path: str="", input_path: str="") -> None:
         print("Error: Unsupported file type!")
     pass
 
-def process_image(save_path: str="", input_path: str="") -> None:
+def process_image(save_path="", input_path=""):
     image_name = os.path.basename(input_path)
     image_src = cv2.imread(input_path)
     if image_src is None:
@@ -37,7 +37,7 @@ def process_image(save_path: str="", input_path: str="") -> None:
         cv2.destroyAllWindows()
     return image_dst
         
-def process_video(save_path: str="", input_path: str="") -> None:
+def process_video(save_path="", input_path=""):
     video_name = os.path.basename(input_path)
     cap = cv2.VideoCapture(input_path)
     if not cap.isOpened():
@@ -67,10 +67,10 @@ def process_video(save_path: str="", input_path: str="") -> None:
     else:
         cv2.destroyAllWindows()
         
-def is_image(file_path: str) -> bool:
+def is_image(file_path):
     return os.path.splitext(file_path)[-1] in [".jpg",".jpeg",".png",".bmp",".tiff",".tif"]
 
-def is_video(file_path: str) -> bool:
+def is_video(file_path):
     return os.path.splitext(file_path)[-1] in [".mp4",".avi",".mov",".mkv",".wmv",".flv"]
 
 if __name__ == "__main__":
