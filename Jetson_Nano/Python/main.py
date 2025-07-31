@@ -46,7 +46,7 @@ def process_video(save_path="", input_path=""):
     width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
     if save_path != "":
-        out = cv2.VideoWriter(save_path, cap.get(cv2.CAP_PROP_FOURCC), cap.get(cv2.CAP_PROP_FPS), (int(width), int(height)))
+        out = cv2.VideoWriter(save_path, int(cap.get(cv2.CAP_PROP_FOURCC)), int(cap.get(cv2.CAP_PROP_FPS)), (int(width), int(height)))
     else:
         cv2.namedWindow("Processed Video", cv2.WINDOW_NORMAL)
         cv2.resizeWindow("Processed Video", width, height)
